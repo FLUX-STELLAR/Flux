@@ -35,6 +35,7 @@ let vite: Awaited<ReturnType<(typeof import('vite'))['createServer']>> | undefin
 if (process.env.NODE_ENV !== 'production') {
   const { createServer } = await import('vite');
   vite = await createServer({
+    root: resolve(import.meta.dirname, '../../frontend'),
     server: { middlewareMode: true, ws: { host: '127.0.0.1', port: port + 1 } },
     appType: 'spa',
   });

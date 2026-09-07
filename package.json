@@ -7,15 +7,15 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "dev": "tsx src/server/index.ts",
-    "build": "tsc --noEmit && vite build",
-    "start": "NODE_ENV=production tsx src/server/index.ts",
+    "dev": "tsx backend/src/index.ts",
+    "build": "tsc --noEmit && vite build --config frontend/vite.config.ts",
+    "start": "NODE_ENV=production tsx backend/src/index.ts",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts",
-    "test:e2e": "playwright test",
+    "test": "tsx --test backend/tests/*.test.ts",
+    "test:e2e": "playwright test --config frontend/playwright.config.ts",
     "check": "npm run typecheck && npm test && npm run build",
-    "format": "prettier --write src tests docs README.md *.json *.ts index.html .github",
-    "format:check": "prettier --check src tests docs README.md *.json *.ts index.html .github"
+    "format": "prettier --write frontend backend docs README.md *.json .github",
+    "format:check": "prettier --check frontend backend docs README.md *.json .github"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",

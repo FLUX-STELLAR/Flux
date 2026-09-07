@@ -8,11 +8,11 @@ Tek operatörün ödeme grubunu oluşturduğu, açığı hesapladığı, tutarı
 
 ## Kod yapısı
 
-- `src/shared`: API sözleşmeleri, para hassasiyeti, durum tipleri.
-- `src/server`: HTTP API, SQLite kalıcılık, fonlama/politika servisi, worker, adaptörler ve webhook outbox.
-- `src/client`: React/TypeScript operatör uygulaması.
-- `src/sdk`: sınırlı partner istemcisi ve webhook doğrulaması.
-- `tests`: para güvenliği, API erişimi, dayanıklılık ve kullanıcı yolculukları.
+- `backend/src`: HTTP API, SQLite kalıcılık, fonlama/politika servisi, worker, adaptörler ve webhook outbox.
+- `backend/src/shared`: API sözleşmeleri, para hassasiyeti, durum tipleri. Frontend de buradan import eder.
+- `backend/src/sdk`: sınırlı partner istemcisi ve webhook doğrulaması.
+- `frontend/src`: React/TypeScript operatör uygulaması.
+- `backend/tests` ve `frontend/tests`: para güvenliği, API erişimi, dayanıklılık ve kullanıcı yolculukları.
 - `docs`: mimari kararlar, API/kurtarma ve canlı pilot kapıları.
 
 React + Vite, Node 24 + Express + TypeScript. Yerel tek süreç için SQLite WAL/FULL; tutarlar ondalık string olarak taşınır, hesaplar BigInt ile yapılır. Worker ve API aynı veritabanını kullanır; kritik işlemler `BEGIN IMMEDIATE` içindedir. Canlı çok örnekli servis için PostgreSQL/migration ve operatör kimlik sağlayıcısı ayrıca değerlendirilecek.

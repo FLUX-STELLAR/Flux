@@ -2,7 +2,7 @@ import { DatabaseSync } from 'node:sqlite';
 import { createHash, randomUUID } from 'node:crypto';
 import { mkdirSync, chmodSync } from 'node:fs';
 import { dirname } from 'node:path';
-import type { AuditEvent, BalancePoint, FundingRequest, OutboxEvent } from '../shared/types.js';
+import type { AuditEvent, BalancePoint, FundingRequest, OutboxEvent } from './shared/types.js';
 
 export const digest = (data: unknown) =>
   createHash('sha256').update(JSON.stringify(data)).digest('hex');

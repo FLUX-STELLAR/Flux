@@ -1,5 +1,5 @@
 import type { Store } from './store.js';
-import { signWebhook } from '../sdk/webhooks.js';
+import { signWebhook } from './sdk/webhooks.js';
 
 export class WebhookDispatcher {
   private running = false;

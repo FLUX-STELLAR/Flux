@@ -1,6 +1,6 @@
 import type { Store } from '../store.js';
-import type { FundingRequest, TransferEvidence } from '../../shared/types.js';
-import { decimal, units } from '../../shared/money.js';
+import type { FundingRequest, TransferEvidence } from '../shared/types.js';
+import { decimal, units } from '../shared/money.js';
 export interface SandboxTransfer {
   request_id: string;
   created_at: string;

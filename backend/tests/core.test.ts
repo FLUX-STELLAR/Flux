@@ -4,8 +4,8 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { units, decimal, shortfall, formatAmount } from '../src/shared/money.js';
-import { Store, digest } from '../src/server/store.js';
-import { AppError, FundingService } from '../src/server/service.js';
+import { Store, digest } from '../src/store.js';
+import { AppError, FundingService } from '../src/service.js';
 import type { Account, CreateFunding, FundingRequest } from '../src/shared/types.js';
 
 function setup(path = ':memory:') {

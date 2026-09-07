@@ -9,8 +9,8 @@ import type {
   Policy,
   TransferEvidence,
   Treasury,
-} from '../shared/types.js';
-import { decimal, max, min, shortfall, units } from '../shared/money.js';
+} from './shared/types.js';
+import { decimal, max, min, shortfall, units } from './shared/money.js';
 import { Store, digest } from './store.js';
 import { SandboxRail } from './adapters/sandbox.js';
 

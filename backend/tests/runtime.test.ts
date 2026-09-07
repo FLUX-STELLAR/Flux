@@ -15,7 +15,7 @@ test('occupied port exits with an error and never reports a running workspace', 
     occupied.close();
     rmSync(dir, { recursive: true, force: true });
   });
-  const child = spawn(process.execPath, ['--import', 'tsx', 'src/server/index.ts'], {
+  const child = spawn(process.execPath, ['--import', 'tsx', 'backend/src/index.ts'], {
     env: {
       ...process.env,
       NODE_ENV: 'test',

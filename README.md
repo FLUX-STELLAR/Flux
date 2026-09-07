@@ -41,13 +41,15 @@ Treasury policy changes and the emergency pause work from the UI. Search/status 
 ## Structure
 
 ```text
-src/shared/          Shared API types and exact monetary arithmetic
-src/server/          Express API, SQLite store, funding service and worker
-src/server/adapters/ Persistent sandbox transfer adapter
-src/client/          React operations workspace
-src/sdk/             Partner API client and webhook verifier
-tests/               Core/API safety tests and browser journeys
-docs/                Build plan, decisions, API and pilot-readiness matrix
+backend/src/          Express API, SQLite store, funding service and worker
+backend/src/adapters/ Persistent sandbox transfer adapter
+backend/src/shared/   Shared API types and exact monetary arithmetic
+backend/src/sdk/      Partner API client and webhook verifier
+backend/tests/        Core, API and runtime safety tests
+frontend/src/         React operations workspace
+frontend/tests/       Browser journeys
+frontend/index.html   Vite entry point and app shell
+docs/                 Build plan, decisions, API and pilot-readiness matrix
 ```
 
 ## Checks

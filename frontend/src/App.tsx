@@ -37,8 +37,8 @@ import type {
   OutboxEvent,
   Overview,
   Scenario,
-} from '../shared/types.js';
-import { formatAmount, shortfall } from '../shared/money.js';
+} from '../../backend/src/shared/types.js';
+import { formatAmount, shortfall } from '../../backend/src/shared/money.js';
 
 const money = (v: string | number) =>
   new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
@@ -1472,7 +1472,7 @@ function IntegrationsPage({ notify }: { notify: (s: string, e?: boolean) => void
           <pre>
             <code>{snippet}</code>
           </pre>
-          <footer>TypeScript · src/sdk/client.ts</footer>
+          <footer>TypeScript · backend/src/sdk/client.ts</footer>
         </section>
       </div>
       <section className="panel">

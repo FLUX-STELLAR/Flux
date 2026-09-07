@@ -54,7 +54,7 @@ Headers:
 - `X-Flux-Timestamp`: Unix seconds for this delivery attempt.
 - `X-Flux-Signature`: hex HMAC-SHA256 of `${timestamp}.${rawBody}`.
 
-Use `src/sdk/webhooks.ts` to verify the exact raw payload and a five-minute timestamp window, then persist deduplication of event IDs. Timestamp verification alone does not deduplicate deliveries. Retries use exponential backoff capped at one hour; any 2xx response acknowledges delivery. Redirects are refused. Permanent endpoint errors remain visible and retryable; this first slice has no dead-letter UI.
+Use `backend/src/sdk/webhooks.ts` to verify the exact raw payload and a five-minute timestamp window, then persist deduplication of event IDs. Timestamp verification alone does not deduplicate deliveries. Retries use exponential backoff capped at one hour; any 2xx response acknowledges delivery. Redirects are refused. Permanent endpoint errors remain visible and retryable; this first slice has no dead-letter UI.
 
 ## Recovery
 
