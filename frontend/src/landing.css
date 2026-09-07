@@ -1735,58 +1735,93 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin: 22px auto 0;
+  gap: 12px;
+  margin: 26px auto 0;
 }
 .lp-route-label {
-  color: #787882;
+  color: #646d7c;
   font-size: 11px;
-  letter-spacing: 0.4px;
+  font-weight: 550;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
 }
 .lp-route-path {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  padding: 11px 18px;
-  border: 1px solid #e2e6ec;
-  border-radius: 12px;
-  background: #fff;
-  font-size: 15px;
-  color: #3c3c44;
+  gap: 19px;
+  max-width: 100%;
+  padding: 16px 24px;
+  border: 1px solid #cadde5;
+  border-radius: 16px;
+  background: linear-gradient(115deg, #edf9f3, #fff 48%, #edf5ff);
+  box-shadow:
+    0 10px 30px #267d9d14,
+    0 0 0 4px #ffffffb3,
+    inset 0 1px 0 #fff;
+  font-size: 24px;
+  letter-spacing: -0.65px;
+  color: #26394c;
+}
+.lp-route-origin,
+.lp-route-arrival {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  white-space: nowrap;
 }
 .lp-route-asset {
-  color: #167c65;
-  font-weight: 600;
+  color: #087958;
+  font-weight: 700;
 }
 .lp-route-via {
-  font-size: 12px;
-  color: #81818c;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #78818b;
 }
 .lp-route-path strong {
-  font-weight: 550;
+  color: #0068ce;
+  font-weight: 650;
 }
-.lp-route-path > svg {
-  color: #8b9bb0;
+.lp-route-arrival > svg {
+  color: #6a8bab;
 }
 .lp-route-destination {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
+  font-size: 16px;
   font-weight: 550;
+  letter-spacing: -0.2px;
 }
 .lp-route-destination svg {
-  width: 21px;
-  height: 21px;
+  width: 23px;
+  height: 23px;
+}
+@media (max-width: 480px) {
+  .lp-route-path {
+    flex-direction: column;
+  }
+  .lp-route-arrival {
+    gap: 9px;
+  }
+  .lp-route-destination {
+    font-size: 14px;
+  }
+  .lp-route-destination svg {
+    width: 19px;
+    height: 19px;
+  }
 }
 @media (max-width: 760px) {
   .lp-route {
     margin-top: 20px;
   }
   .lp-route-path {
-    gap: 10px;
-    padding: 11px 13px;
-    font-size: 14px;
+    gap: 14px;
+    padding: 15px 19px;
+    font-size: 22px;
   }
   .lp-route-label {
     font-size: 10px;

@@ -149,12 +149,16 @@ export default function LandingPage({ enter }: Props) {
             >
               <span className="lp-route-label">Proposed first route</span>
               <div className="lp-route-path">
-                <span className="lp-route-asset">USDT0</span>
-                <span className="lp-route-via">via</span>
-                <strong>LayerZero</strong>
-                <ArrowRight size={16} aria-hidden="true" />
-                <span className="lp-route-destination">
-                  <StellarMark /> Stellar
+                <span className="lp-route-origin">
+                  <span className="lp-route-asset">USDT0</span>
+                  <span className="lp-route-via">via</span>
+                  <strong>LayerZero</strong>
+                </span>
+                <span className="lp-route-arrival">
+                  <ArrowRight size={18} aria-hidden="true" />
+                  <span className="lp-route-destination">
+                    <StellarMark /> Stellar
+                  </span>
                 </span>
               </div>
             </div>
