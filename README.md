@@ -1,3 +1,5 @@
+<img src="frontend/public/favicon.svg" alt="Flux logo" width="240" />
+
 # Flux
 
 **Treasury planning and settlement control for Stellar payment operators.**
