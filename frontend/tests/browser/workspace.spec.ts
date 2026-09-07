@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('approval shows exact sub-cent funding instead of rounding to zero', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/app');
   await page.getByRole('button', { name: 'New funding request' }).click();
   await page.getByLabel('Batch name').fill('Precision check');
   await page.getByLabel('Partner batch ID').fill('precision-batch-01');
@@ -18,7 +18,7 @@ test('approval shows exact sub-cent funding instead of rounding to zero', async 
 test('operator creates, approves, reconciles, exports and pays a batch', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  await page.goto('/');
+  await page.goto('/app');
   await expect(page.getByRole('heading', { name: 'Overview', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'New funding request' }).click();
   await page.getByLabel('Batch name').fill('Browser payroll');
@@ -50,7 +50,7 @@ test('operator creates, approves, reconciles, exports and pays a batch', async (
 test('policy hard limit is visible and delayed delivery recovers without a second transfer', async ({
   page,
 }) => {
-  await page.goto('/');
+  await page.goto('/app');
   await page.getByRole('button', { name: 'New funding request' }).click();
   await page.getByLabel('Batch name').fill('Delayed supplier batch');
   await page.getByLabel('Partner batch ID').fill('browser-delay-01');
@@ -85,7 +85,7 @@ test('mobile navigation, policy persistence, audit and integration pages work', 
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
+  await page.goto('/app');
   await expect(page.getByRole('heading', { name: 'Overview', exact: true })).toBeVisible();
   await page.screenshot({ path: 'test-results/flux-mobile.png', fullPage: true });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(

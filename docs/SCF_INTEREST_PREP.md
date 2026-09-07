@@ -2,6 +2,8 @@
 
 Hazırlanma: 7 Eylül 2026. Durum: iç çalışma taslağı; gönderilmedi.
 
+Ürün yönü güncellemesi: [v1.4 önerisi](PRODUCT_DIRECTION.md), yaklaşan batch yükümlülükleri için zaman bazlı likidite planlamasını bir sonraki teslim olarak tanımlar. Planner ve çoklu rota seçimi mevcut traction veya tamamlanmış entegrasyon olarak sunulmayacak. İlk canlı pilot tek rota ile sınırlı kalır.
+
 İlk hedef, Flux'un mevcut aşamasını kanıtlarla anlatıp SCF'den uygunluk ve sonraki adım yönlendirmesi almak. Tam Build başvurusu ve kontrollü mainnet pilotu ayrı aşamalar.
 
 ## Güncel kaynak kontrolü
@@ -29,7 +31,7 @@ Flux
 
 ### Project Description — üst sınır 1.100 karakter
 
-Flux is developing policy-controlled, just-in-time settlement funding for batch-based payment operators using Stellar. When a payout batch creates a shortfall, Flux calculates the required top-up, applies reserve and transfer limits, requests operator approval, and coordinates funding from an operator-controlled EVM treasury. It then reconciles the source transaction, cross-chain evidence and Stellar receipt before notifying the payout system that liquidity is ready. The intended outcome is lower continuously prefunded Stellar stablecoin inventory while preserving the operator's payout SLA. The initial scope is one operator, one source chain, one asset route and one Stellar settlement account. A local sandbox implements the workflow; live transport and payout integrations are planned.
+Flux is building a treasury control layer for Stellar payment operators, connecting upcoming payout obligations to policy-controlled funding and batch-level reconciliation. Its local sandbox calculates funding shortfalls, preserves reserves and allocations, requires exact-intent approval, and reconciles simulated transfers before signaling liquidity readiness. The proposed next increment is a time-based planner that evaluates multiple scheduled batches, explains when funding is needed, and flags deadline risk. Live execution will initially use one operator-controlled EVM treasury, one supported asset route and one Stellar settlement account. Intended benefits are lower prefunded inventory and less manual coordination while preserving payout readiness; neither is yet measured. The planner, live transport and payout integration remain to be implemented.
 
 ### Current Traction — üst sınır 1.000 karakter
 
@@ -59,17 +61,17 @@ Flux is led by [FULL NAME], responsible for product decisions, implementation ow
 
 ### Kullanıcı bilgisi veya ek hazırlık gereken alanlar
 
-| Alan | Hazırlık |
-| --- | --- |
-| Project Category | Gerçek seçenekler arasından B2B operatör uygulamasını karşılayan kategori seçilecek; özgün protokol geliştirme iddiası yapılmayacak. |
-| Website | Zorunlu URL. Kamuya açık ürün açıklaması ve demo videosu olan bir sayfa öneriliyor. Mevcut localhost adresi inceleyiciye erişim sağlamaz. |
-| Submitter type | Kullanıcının gerçek bireysel/kurumsal başvuru statüsü. |
-| Email | Kullanıcının başvuru iletişim adresi. |
-| Team Description | İsim, doğrulanabilir deneyim ve profil bağlantıları. |
-| Target jurisdictions | İlk hedef operatör/pazar seçimine göre doldurulacak; otomatik olarak “Global” seçilmeyecek. |
-| Team jurisdictions | Kullanıcının teyit ettiği konum/kuruluş bilgisi; cihaz saat diliminden çıkarılmayacak. |
-| Local financial infrastructure | Gerçek entegrasyon kapsamına göre cevaplanacak. Flux'un fonlaması ile partnerin fiat/yerel ödeme faaliyeti açıkça ayrılacak. |
-| Referral | Gerçek referans ilişkisi varsa verilen kod; aksi halde mevcutmuş gibi gösterilmeyecek. |
+| Alan                           | Hazırlık                                                                                                                                  |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Project Category               | Gerçek seçenekler arasından B2B operatör uygulamasını karşılayan kategori seçilecek; özgün protokol geliştirme iddiası yapılmayacak.      |
+| Website                        | Zorunlu URL. Kamuya açık ürün açıklaması ve demo videosu olan bir sayfa öneriliyor. Mevcut localhost adresi inceleyiciye erişim sağlamaz. |
+| Submitter type                 | Kullanıcının gerçek bireysel/kurumsal başvuru statüsü.                                                                                    |
+| Email                          | Kullanıcının başvuru iletişim adresi.                                                                                                     |
+| Team Description               | İsim, doğrulanabilir deneyim ve profil bağlantıları.                                                                                      |
+| Target jurisdictions           | İlk hedef operatör/pazar seçimine göre doldurulacak; otomatik olarak “Global” seçilmeyecek.                                               |
+| Team jurisdictions             | Kullanıcının teyit ettiği konum/kuruluş bilgisi; cihaz saat diliminden çıkarılmayacak.                                                    |
+| Local financial infrastructure | Gerçek entegrasyon kapsamına göre cevaplanacak. Flux'un fonlaması ile partnerin fiat/yerel ödeme faaliyeti açıkça ayrılacak.              |
+| Referral                       | Gerçek referans ilişkisi varsa verilen kod; aksi halde mevcutmuş gibi gösterilmeyecek.                                                    |
 
 Ülke ve diğer cevaplara bağlı ek alanlar bulunuyor. Yukarıdaki tablo sabit alanların hazırlanması içindir; koşullu sorular ancak gerçek cevaplar belli olunca tamamlanabilir.
 
@@ -83,4 +85,4 @@ Bu liste bizim çalışma hedefimizdir; SCF'nin yayımladığı zorunlu belge li
 4. **Kurucu ve talep kanıtı:** Kurucu geçmişi eklenecek. Operatör görüşmesi varsa tarih, ihtiyaç, kullanılan varlık ve kabul edilen fonlama süresi kaydedilecek; yoksa doğrulama hedefi olarak kalacak.
 5. **Formun son hali:** Metinler gerçek URL'lerle ve kullanıcı bilgileriyle tamamlanacak. Mevcut aşama üzerinden track uygunluğu sorulacak.
 
-Sonraki mühendislik adımı: demo çalıştırma ve doğrulama. Dashboard kapsamını genişletmek, çoklu ağ eklemek ve otonom mainnet işlemleri bu ilk hazırlık hedefinin dışında.
+Önerilen sonraki mühendislik adımı: ürün yönü belgesindeki üç batch senaryosunu kullanan salt okunur Liquidity Planner sandbox. Mevcut demo ve funding akışı korunur; planner kapsamı uygulandıktan sonra ayrıca doğrulanır. Gerçek operatör problemi ve örnek veri araştırması bu teslimle birlikte yürütülür. Çoklu canlı ağ ve otonom mainnet işlemleri kapsam dışındadır.

@@ -94,9 +94,7 @@ function download(data: unknown, name: string) {
 function Logo({ small = false }: { small?: boolean }) {
   return (
     <span className={`logo ${small ? 'small' : ''}`}>
-      <svg viewBox="0 0 40 40" aria-hidden="true">
-        <path d="M10 10h23l-7 9H16L7 32l5-17h12l2-3H10z" fill="currentColor" />
-      </svg>
+      <img src="/favicon.svg" width="35" height="35" alt="" />
       {!small && (
         <span>
           flux<span className="logo-dot">.</span>

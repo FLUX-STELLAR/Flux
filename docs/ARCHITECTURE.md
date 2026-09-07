@@ -1,6 +1,8 @@
 # Flux architecture
 
-**Product baseline:** Flux PRD v1.3, 6 September 2026. **Architecture review:** 7 September 2026.
+**Implemented funding baseline:** Flux PRD v1.3, 6 September 2026. **Architecture review:** 7 September 2026.
+
+**Proposed next increment:** the [v1.4 product direction](PRODUCT_DIRECTION.md) introduces versioned payment obligations, a time-based liquidity planner and plan allocations above the funding lifecycle documented here. These components are not implemented. The initial live scope stays on one validated route; additional rails remain deferred. The proposal does not replace the original PRD or change the current API contract.
 
 Flux coordinates funding for a Stellar payout batch from an operator-controlled external treasury. Its core responsibility is to preserve the relationship between the business need, the approved funding amount, the transfer evidence and the resulting usable settlement balance.
 

@@ -1,12 +1,14 @@
 # Flux
 
-**Just-in-time settlement liquidity for Stellar payment operators.**
+**Treasury planning and settlement control for Stellar payment operators.**
 
-Flux is developing a treasury orchestration layer that connects an operator's EVM stablecoin treasury to its Stellar payout workflow. It calculates a batch's funding shortfall, applies treasury policy, requests operator approval, and reconciles incoming funds before signaling that the batch has sufficient liquidity.
+Flux is developing a treasury control layer that connects upcoming Stellar payout obligations to policy-controlled funding and reconciliation. The current sandbox calculates a batch's funding shortfall, applies treasury policy, requests operator approval, and reconciles simulated incoming funds before signaling that the batch has sufficient liquidity.
 
 The intended outcome is **less continuously prefunded stablecoin inventory on Stellar while preserving the operator's payout SLA**.
 
 > **Current stage: local sandbox prototype, preparing for SCF interest review.** The API, database and operator workflow are implemented. Balances, cross-chain transfers and payouts are simulated. Live wallet signing, transport, Stellar observation and payout-engine integration remain to be built. No production usage or measured capital savings are claimed.
+
+**Proposed next direction:** a time-based liquidity planner for multiple upcoming batches, built on the existing funding lifecycle. The first live pilot remains limited to one validated asset route. Planning, additional rails and live integrations are not implemented. See the [v1.4 product direction proposal](docs/PRODUCT_DIRECTION.md) for scope, validation criteria and delivery order.
 
 [Product](#the-problem) · [Workflow](#how-flux-works) · [Scope](#first-live-mvp-scope) · [Status](#what-is-implemented) · [Run locally](#run-locally) · [Architecture](docs/ARCHITECTURE.md)
 
@@ -26,7 +28,7 @@ These are validation hypotheses. Operator interviews and pilot data must establi
 
 ## How Flux works
 
-The target flow is:
+The funding execution flow is:
 
 ```mermaid
 flowchart LR
@@ -66,7 +68,7 @@ After that top-up and the batch payout, the account retains the 5,000 reserve, a
 
 ## First live MVP scope
 
-The product baseline is **Flux PRD v1.3, dated 6 September 2026**. The original document is maintained separately; this repository describes its implementation and outstanding decisions.
+The implemented funding baseline is **Flux PRD v1.3, dated 6 September 2026**. The original document is maintained separately. The [v1.4 direction proposal](docs/PRODUCT_DIRECTION.md) adds obligation planning as the recommended next increment; it is not a completed feature or a replacement final PRD.
 
 | Dimension          | Target for the first live MVP                                                                     |
 | ------------------ | ------------------------------------------------------------------------------------------------- |
@@ -116,7 +118,7 @@ npm ci
 npm run dev
 ```
 
-Open **http://127.0.0.1:4337**. Express serves the API and the Vite development application on the same origin. Development live reload also uses port 4338 by default.
+Open **http://127.0.0.1:4337** for the product landing page, then select **Launch app** to enter the sandbox through a short, skippable intro. The operator workspace is also directly accessible at **http://127.0.0.1:4337/app**. Reduced-motion preferences skip the intro. The landing page uses illustrative data and does not open an operator session. Express serves the API and the Vite development application on the same origin. Development live reload also uses port 4338 by default.
 
 First startup creates `backend/data/flux.sqlite` and three sandbox sample requests. State persists across restarts. Samples are seeded once per database and can expire; create a fresh request if the sample approval window has passed.
 

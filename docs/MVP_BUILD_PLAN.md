@@ -2,6 +2,8 @@
 
 Kaynak: PRD v1.3 (6 Eylül 2026) ve FLUX_PRD_INCELEME_RAPORU.md.
 
+Bu belge teslim edilmiş v1.3 sandbox işlerinin tarihçesidir. Önerilen sonraki ürün kapsamı [v1.4 ürün yönü](PRODUCT_DIRECTION.md) belgesinde: mevcut funding akışının üzerine çoklu batch için zaman bazlı, önce salt okunur bir Liquidity Planner. Çoklu canlı rota ve otonom gönderim bu artımın kapsamında değildir.
+
 ## İlk çalışır teslim
 
 Tek operatörün ödeme grubunu oluşturduğu, açığı hesapladığı, tutarı onayladığı, fonlama durumunu izlediği ve mutabakat kanıtını dışa aktardığı çalışan uygulama. İlk teslim açıkça etiketlenmiş yerel sandbox kullanır: dış ağ işlemi veya gerçek para hareketi üretmez. Canlı pilot için gereken ağ/cüzdan/operatör kararları teslim edilen ürünün içinde tamamlanmış gibi sunulmaz.

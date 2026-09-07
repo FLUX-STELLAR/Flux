@@ -10,7 +10,7 @@ test('editor iframe loads and authenticates even when cookies are unavailable', 
   });
   await page.goto('/health');
   await page.setContent(
-    '<iframe title="Editor preview" src="/" style="width:1200px;height:900px;border:0"></iframe>',
+    '<iframe title="Editor preview" src="/app" style="width:1200px;height:900px;border:0"></iframe>',
   );
   const app = page.frameLocator('iframe');
   await expect(app.getByRole('heading', { name: 'Overview', exact: true })).toBeVisible({
