@@ -1,62 +1,62 @@
-# Flux MVP — İnşa planı
+# Flux MVP — Build plan
 
-Kaynak: PRD v1.3 (6 Eylül 2026) ve FLUX_PRD_INCELEME_RAPORU.md.
+Source: PRD v1.3 (6 September 2026) and the PRD review report (`FLUX_PRD_INCELEME_RAPORU.md`).
 
-Bu belge teslim edilmiş v1.3 sandbox işlerinin tarihçesidir. Önerilen sonraki ürün kapsamı [v1.4 ürün yönü](PRODUCT_DIRECTION.md) belgesinde: mevcut funding akışının üzerine çoklu batch için zaman bazlı, önce salt okunur bir Liquidity Planner. Çoklu canlı rota ve otonom gönderim bu artımın kapsamında değildir.
+This document records the delivered v1.3 sandbox work. The proposed next product scope is described in the [v1.4 product direction](PRODUCT_DIRECTION.md): a time-based Liquidity Planner for multiple batches on top of the existing funding flow, initially read-only. Multiple live routes and autonomous submission are outside this increment's scope.
 
-## İlk çalışır teslim
+## First working delivery
 
-Tek operatörün ödeme grubunu oluşturduğu, açığı hesapladığı, tutarı onayladığı, fonlama durumunu izlediği ve mutabakat kanıtını dışa aktardığı çalışan uygulama. İlk teslim açıkça etiketlenmiş yerel sandbox kullanır: dış ağ işlemi veya gerçek para hareketi üretmez. Canlı pilot için gereken ağ/cüzdan/operatör kararları teslim edilen ürünün içinde tamamlanmış gibi sunulmaz.
+A working application in which one operator creates a payout batch, calculates the shortfall, approves the amount, tracks funding status and exports reconciliation evidence. The first delivery uses a clearly labeled local sandbox: it produces no external network transactions or real fund movements. Network, wallet and operator decisions required for the live pilot are not presented as completed within the delivered product.
 
-## Kod yapısı
+## Code structure
 
-- `shared`: API sözleşmeleri, para hassasiyeti, durum tipleri. Frontend ve backend ortak kullanır.
-- `backend/src`: HTTP API, SQLite kalıcılık, fonlama/politika servisi, worker, adaptörler ve webhook outbox.
-- `backend/src/sdk`: sınırlı partner istemcisi ve webhook doğrulaması.
-- `frontend/src`: React/TypeScript operatör uygulaması.
-- `backend/tests` ve `frontend/tests`: para güvenliği, API erişimi, dayanıklılık ve kullanıcı yolculukları.
-- `docs`: mimari kararlar, API/kurtarma ve canlı pilot kapıları.
+- `shared`: API contracts, monetary precision and status types. Shared by the frontend and backend.
+- `backend/src`: HTTP API, SQLite persistence, funding/policy service, worker, adapters and webhook outbox.
+- `backend/src/sdk`: limited partner client and webhook verification.
+- `frontend/src`: React/TypeScript operator application.
+- `backend/tests` and `frontend/tests`: monetary safety, API access, resilience and user journeys.
+- `docs`: architecture decisions, API/recovery and live pilot gates.
 
-React + Vite, Node 24 + Express + TypeScript. Yerel tek süreç için SQLite WAL/FULL; tutarlar ondalık string olarak taşınır, hesaplar BigInt ile yapılır. Worker ve API aynı veritabanını kullanır; kritik işlemler `BEGIN IMMEDIATE` içindedir. Canlı çok örnekli servis için PostgreSQL/migration ve operatör kimlik sağlayıcısı ayrıca değerlendirilecek.
+React + Vite, Node 24 + Express + TypeScript. SQLite WAL/FULL for a single local process; amounts are transported as decimal strings and calculated with BigInt. The worker and API share the same database; critical operations use `BEGIN IMMEDIATE`. PostgreSQL/migrations and an operator identity provider will be evaluated separately for a live service running multiple instances.
 
-## Uygulama sırası
+## Implementation order
 
-1. Proje araçları, tipler, dokümantasyon ve çalıştırma komutları.
-2. Kesin para aritmetiği; minimum rezerv, işlem/günlük limit, süre ve tazelik kuralları.
-3. Kalıcı talepler, idempotency, ödeme bakiyesi tahsisi, onay, iptal ve hash bağlantılı audit kayıtları.
-4. Tek ekonomik gönderimi garanti eden sandbox adaptörü; kalıcı transfer/gözlem kayıtları; gecikme, eksik alım ve toparlanma.
-5. Yetkilendirilmiş API, transactional webhook outbox, sınırlı TypeScript istemcisi.
-6. Operatör paneli: genel görünüm, fonlama kuyruğu, yeni ödeme grubu, detay/onay/kanıt, politika, audit ve entegrasyon.
-7. Kritik hata testleri, API testleri, tarayıcı üzerinden uçtan uca kontrol, üretim derlemesi.
-8. Çalıştırma/kurtarma belgesi ve güncel kabul kriteri matrisi.
+1. Project tooling, types, documentation and run commands.
+2. Exact monetary arithmetic; minimum reserve, per-transfer/daily limits, timing and freshness rules.
+3. Persistent requests, idempotency, payout balance allocations, approval, cancellation and hash-linked audit records.
+4. A sandbox adapter that guarantees a single economic submission; persistent transfer/observation records; delays, partial receipts and recovery.
+5. Authorized API, transactional webhook outbox and a limited TypeScript client.
+6. Operator panel: overview, funding queue, new payout batch, details/approval/evidence, policy, audit and integration.
+7. Critical failure tests, API tests, browser end-to-end checks and a production build.
+8. Operations/recovery documentation and an up-to-date acceptance criteria matrix.
 
-## İlk uygulama kararları
+## Initial implementation decisions
 
-- Tüm pozitif fonlamalar manuel onay ister. Onay, talebin immutable hash'ine bağlıdır.
-- Sert limit aşımları ek onayla geçilmez; politika değişikliği ayrı ve kayıtlı işlemdir.
-- Tutarlar 7 basamaklı Stellar birimiyle tutulur; sandbox USDT0 transfer tutarı 6 basamağa yukarı yuvarlanır. Gerçek rota ücreti/quote ayrıca uygulanmalıdır.
-- Tek hesapta bekleyen ödeme gruplarının tahsisleri hesaba katılır. Bekleyen gelen fon, başka grubun kullanılabilir bakiyesine eklenmez.
-- Tek batch ID ve idempotency anahtarı farklı içerikle tekrar kullanılırsa 409 döner.
-- İmza/gönderim öncesi bakiye tekrar değerlendirilir. Ek fon ihtiyacı doğarsa eski onay sessizce değiştirilmez.
-- Kaynak gönderimi ve dış gözlem birbirinden ayrılır. Gecikmede yalnızca gözlem tekrarlanır.
-- Sıfır fonlama `NO_FUNDING_REQUIRED`; reddedilen/süresi dolan talepler ayrı terminal sonuçlardır.
-- Mutabakat kaynak/message/receipt/asset/account/amount eşleşmesini ve tekil receipt tüketimini gerektirir.
-- Ödeme hazır sinyali ile payout başarısı ayrıdır; mevcut ödeme motoru ödeme durumunun sahibidir.
-- API, audit ve webhook olayları aynı DB işleminde yazılır; at-least-once teslim kullanılır.
-- Yerel erişim yalnızca loopback; açık sandbox etiketi. Uzak dağıtım ve mainnet varsayılan olarak etkinleştirilmez.
+- All positive funding amounts require manual approval. Approval is bound to the request's immutable hash.
+- Hard limits cannot be overridden through additional approval; a policy change is a separate, recorded operation.
+- Amounts are stored with seven decimal places for Stellar; sandbox USDT0 transfer amounts are rounded up to six decimal places. Actual route fees/quotes must be applied separately.
+- Allocations for pending payout batches in the same account are included. Pending incoming funds are not added to another batch's available balance.
+- Reusing a batch ID or idempotency key with different content returns 409.
+- Balance is reassessed before signing/submission. If additional funding is needed, the existing approval is not silently changed.
+- Source submission and external observation are separate. Only observation is retried after a delay.
+- Zero funding is `NO_FUNDING_REQUIRED`; rejected/expired requests have separate terminal outcomes.
+- Reconciliation requires matching the source/message/receipt/asset/account/amount and unique receipt consumption.
+- The liquidity-ready signal and payout success are separate; the existing payout engine owns payout status.
+- API, audit and webhook events are written in the same database transaction; delivery is at least once.
+- Local access is restricted to loopback, with a clear sandbox label. Remote deployment and mainnet are not enabled by default.
 
-## Canlı pilot için açık kapılar
+## Outstanding live pilot gates
 
-- Gerçek operatör, varlık issuer/SAC, kaynak ağ/token adresi, hedef hesap, desteklenen rota kanıtı.
-- Operatör kontrollü kaynak cüzdanı / multisig; işlem detaylarının cüzdanda bağımsız doğrulanması.
-- Gerçek Stellar gözlemi, kaynak finality, LayerZero GUID veya CCTP attestation doğrulaması.
-- RPC/ücret/quote, trustline, XLM rezervi, hassasiyet ve alım farkı politikası.
-- Üretim kimlik sağlayıcısı, MFA, rol ayrımı, anahtar saklama ve bağımsız güvenlik incelemesi.
-- Gerçek SDP/partner erişimi; fonlama hazır olduğunda ödeme başlatma sözleşmesi.
-- Pilot baseline, SLA, risk limiti, veri yayın izinleri ve SCF kanıtları.
+- A real operator, asset issuer/SAC, source network/token address, destination account and evidence of a supported route.
+- An operator-controlled source wallet / multisig; independent verification of transaction details in the wallet.
+- Real Stellar observation, source finality and LayerZero GUID or CCTP attestation verification.
+- RPC/fees/quotes, trustlines, XLM reserve, precision and receipt discrepancy policy.
+- Production identity provider, MFA, role separation, key management and independent security review.
+- Real SDP/partner access; a contract for starting payouts when funding is ready.
+- Pilot baseline, SLA, risk limit, permission to publish data and SCF evidence.
 
-Bu kapılar, yerel uygulamayı kurmayı engellemez. Gerçek fon hareketi için geçilmesi gerekir.
+These gates do not block building the local application. They must be passed before real funds move.
 
-## İlk teslim durumu — 7 Eylül 2026
+## Initial delivery status — 7 September 2026
 
-1–8 numaralı yerel sandbox işleri uygulandı. API, kalıcı veritabanı, exact-amount hesaplama, manuel onay, limitler, tahsisler, recovery, audit/outbox, partner istemcisi, beş ekranlı operatör paneli ve testler mevcut. Gerçek ağ/cüzdan/SDP entegrasyonları açık kapılardır; test sonuçları ve kapsam `docs/ACCEPTANCE.md` üzerinden izlenir.
+Local sandbox tasks 1–8 are implemented. The API, persistent database, exact-amount calculations, manual approval, limits, allocations, recovery, audit/outbox, partner client, five-screen operator panel and tests are present. Real network/wallet/SDP integrations remain outstanding gates; test results and scope are tracked in `docs/ACCEPTANCE.md`.

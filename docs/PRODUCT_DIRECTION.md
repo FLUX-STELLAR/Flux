@@ -1,40 +1,40 @@
-# Flux — Ürün yönü ve v1.4 önerisi
+# Flux — Product direction and v1.4 proposal
 
-Tarih: 7 Eylül 2026. Durum: kullanıcı tarafından paylaşılan ürün eleştirisine karşı hazırlanmış çalışma önerisi. Ayrı tutulan PRD v1.3 belgesinin yerine geçmiş nihai PRD değildir. Aşağıdaki planlama yetenekleri henüz uygulanmadı; mevcut ürün yerel sandbox olarak çalışıyor.
+Date: 7 September 2026. Status: a working proposal in response to the product critique shared by the user. This is not a final PRD replacing the separately maintained PRD v1.3. The planning capabilities below are not yet implemented; the current product runs as a local sandbox.
 
-## 1. Önerilen ürün kararı
+## 1. Proposed product decision
 
-**Flux, Stellar ödeme operatörleri için yaklaşan ödeme yükümlülüklerini zamanlanmış, politika kontrollü fonlama planlarına dönüştüren ve fonlamayı hizmet ettiği batch ile mutabık kılan treasury kontrol katmanı olarak geliştirilmeli.**
+**Flux should be developed as a treasury control layer for Stellar payment operators, turning upcoming payout obligations into scheduled, policy-controlled funding plans and reconciling funding back to the batches it serves.**
 
-Dış iletişim için önerilen tek cümle:
+Proposed one-sentence description for external communication:
 
 > Flux is building the treasury control plane for Stellar payment operators, turning upcoming payout obligations into policy-controlled liquidity plans and reconciling funding back to the batches it serves.
 
-İlk farklılaşma, **birden fazla batch için ödeme zamanını ve ortak likidite tahsislerini birlikte değerlendirmek**. İlk canlı pilot yine tek operatör, tek kaynak treasury, tek ödeme varlığı, tek doğrulanmış rota ve tek Stellar settlement hesabıyla sınırlandırılır. İkinci rota, operatör ihtiyacı kanıtlandıktan sonra eklenir.
+The initial differentiator is **evaluating payout timing and shared liquidity allocations across multiple batches together**. The first live pilot remains limited to one operator, one source treasury, one payout asset, one validated route and one Stellar settlement account. A second route is added after the operator need is demonstrated.
 
-Bu konumlandırma bir ürün hipotezidir. Daha kapsamlı bir mimari veya daha fazla entegrasyon, müşterinin ayrı bir ürüne ihtiyaç duyduğunu tek başına kanıtlamaz.
+This positioning is a product hypothesis. A broader architecture or more integrations alone does not prove that customers need a separate product.
 
-## 2. Eleştiriden aldığımız ve düzelttiğimiz noktalar
+## 2. What we accept and revise from the critique
 
-| Konu                                                   | Değerlendirme ve ürün kararı                                                                                                                                                                                                |
-| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Otomatik top-up tek başına zayıf farklılaşma           | Katılıyoruz. Operatörün bir sonraki fonlama kararını açıklamak, deadline riskini göstermek ve batch muhasebesini kapatmak doğrulanacak değer önerisi.                                                                       |
-| Basit açık formülü ürünü değersiz yapar                | Katılmıyoruz. Basit ve denetlenebilir hesap doğru bir primitive. Eksik olan zamana bağlı çoklu yükümlülük planlaması; formülü karmaşıklaştırmak hedef değil.                                                                |
-| Unified supply treasury ihtiyacını kaldırır            | Kaynak ağdaki varlık, hedef settlement hesabında kullanılabilir bakiye değildir. Treasury kararı ve taşıma işlemi ayrı sorumluluklar olarak kalır.                                                                          |
-| Multi-rail hemen gerekli                               | Henüz kanıtlanmadı. Adaptör sınırı korunur; ilk planlayıcı tek doğrulanmış rotayla değer göstermeli.                                                                                                                        |
-| USDT0/LayerZero ve USDC/CCTP otomatik alternatiflerdir | Ödeme varlığının kimliği belirleyicidir. USDC yükümlülüğü USDT0 gelmesiyle hazır sayılamaz. Varlık dönüşümü ayrı fiyat, likidite, yetki ve mutabakat problemi getirir; ilk kapsam dışında.                                  |
-| Exactly-once settlement garanti edebiliriz             | Genel bir uçtan uca garanti olarak kullanılmayacak. Belirsiz gönderimde yeniden ekonomik işlem açmama, kalıcı işlem kimliği ve receipt deduplication somut kontrol gereksinimleridir. Payout partnerinin işlemi ayrı kalır. |
-| Daha geniş kapsam 75.000 USD hibeyi haklı çıkarır      | Bütçe ve uygunluk, iş kapsamı ve kullanım kanıtıyla gerekçelendirilir. Daha fazla özellik eklemek finansman kanıtı değildir.                                                                                                |
+| Topic                                                                        | Assessment and product decision                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Automatic top-ups alone provide weak differentiation                         | Agreed. The value proposition to validate is explaining the operator's next funding decision, showing deadline risk and closing the batch accounting loop.                                                                                                             |
+| A simple shortfall formula makes the product worthless                       | Disagreed. A simple, auditable calculation is an appropriate primitive. The missing capability is planning multiple obligations over time; making the formula more complex is not the goal.                                                                            |
+| Unified supply eliminates treasury needs                                     | An asset on the source network is not usable balance in the destination settlement account. Treasury decisions and transport remain separate responsibilities.                                                                                                         |
+| Multiple rails are needed immediately                                        | Not yet demonstrated. Preserve the adapter boundary; the first planner should demonstrate value with one validated route.                                                                                                                                              |
+| USDT0/LayerZero and USDC/CCTP are automatically interchangeable alternatives | The payout asset's identity is decisive. Receiving USDT0 cannot make a USDC obligation ready. Asset conversion introduces separate pricing, liquidity, authorization and reconciliation problems; it is outside the initial scope.                                     |
+| We can guarantee exactly-once settlement                                     | This will not be used as a general end-to-end guarantee. Preventing a new economic transfer when a submission is ambiguous, durable transaction identity and receipt deduplication are concrete control requirements. The payout partner's operation remains separate. |
+| A broader scope justifies a USD 75,000 grant                                 | Budget and eligibility must be justified by the work scope and evidence of usage. Adding features is not evidence supporting funding.                                                                                                                                  |
 
-Güncel Stellar dokümanı USDT0 için programatik OFT gönderimini, hedef varlık kimliğini ve transfer süresinin kaynak finality/DVN doğrulamasına bağlı olduğunu açıklıyor. Paylaşılan metindeki “30 saniye–3 dakika” aralığı Flux SLA'sı veya planlayıcı sabiti yapılmayacak. [Stellar USDT0 dokümanı](https://developers.stellar.org/docs/tokens/usdt0-layerzero)
+Current Stellar documentation describes programmatic OFT transfers for USDT0, destination asset identity and transfer timing that depends on source finality and DVN verification. The “30 seconds–3 minutes” range in the shared critique will not become a Flux SLA or a planner constant. [Stellar USDT0 documentation](https://developers.stellar.org/docs/tokens/usdt0-layerzero)
 
-CCTP, Stellar için native USDC taşıma yoludur. Bu, USDT0 ile aynı ödeme varlığını ürettiği anlamına gelmez. Rota uygunluğu önce varlık ve hesap uyumuna göre değerlendirilir. [Stellar CCTP dokümanı](https://developers.stellar.org/docs/tokens/cross-chain-transfers)
+CCTP provides a transport path for native USDC on Stellar. This does not mean it delivers the same payout asset as USDT0. Route eligibility is evaluated first by asset and account compatibility. [Stellar CCTP documentation](https://developers.stellar.org/docs/tokens/cross-chain-transfers)
 
-## 3. Mevcut temelin üzerine ne ekleniyor?
+## 3. What is added to the existing foundation?
 
-Mevcut `FundingRequest`, batch kimliğini ve `scheduled_at` zamanını taşıyor; `FundingService` diğer batch tahsislerini, minimum rezervi ve minimum hazırlık süresini dikkate alıyor. Exact-intent onayı, idempotency, gecikmede observation-only recovery, receipt kontrolü ve audit/outbox mevcut. Bunların dış finansal işlemleri simüle ediliyor.
+The existing `FundingRequest` carries the batch identity and `scheduled_at` time; `FundingService` accounts for other batch allocations, the minimum reserve and the minimum lead time. Exact-intent approval, idempotency, observation-only recovery after delays, receipt checks and audit/outbox records are implemented. Their external financial operations are simulated.
 
-Eksik olan, fonlama talebi oluşturulmadan önce gelecekteki batch'leri birlikte ele alan, zaman bazlı bakiye projeksiyonu çıkaran ve kararın gerekçesini sürümleyerek saklayan planlayıcı.
+The missing component is a planner that considers future batches together before a funding request is created, produces a balance projection over time and stores versioned decision rationale.
 
 ```mermaid
 flowchart LR
@@ -46,46 +46,46 @@ flowchart LR
     R --> B[Batch liquidity readiness]
 ```
 
-Planlama önerisi, onay ve gerçek yürütme ayrı kayıtlardır. Plan oluşturmak otomatik fon göndermez.
+The planning proposal, approval and actual execution are separate records. Creating a plan does not automatically send funds.
 
-## 4. İlk hedef müşteri ve doğrulama
+## 4. Initial target customer and validation
 
-Hedef: aynı Stellar hesabından tekrarlayan batch ödemeleri yapan, treasury'sinin en az bir kısmını desteklenen başka ağda tutan ve fonlama kararlarını manuel koordine eden operatör. İlk kullanım senaryosu payroll, remittance veya merchant payout arasından gerçek erişime göre seçilecek; üç segment aynı anda hedeflenmeyecek.
+Target: an operator making recurring batch payments from the same Stellar account, holding at least part of its treasury on another supported network and coordinating funding decisions manually. The first use case will be selected from payroll, remittance or merchant payouts based on actual access; all three segments will not be targeted at once.
 
-Henüz bu belgeyle doğrulanmış operatör, taahhüt edilmiş pilot veya SDP veri erişimi ilan edilmiyor.
+This document does not claim a validated operator, a committed pilot or access to SDP data.
 
-Önerilen ilk araştırma çıktısı: üç operatör görüşmesi, bunlardan en az birinde anonimleştirilmiş bir haftalık batch zamanları/bakiyeleri/fonlama kayıtları. Bu bir çalışma hedefidir, piyasa kanıtı değildir.
+Proposed initial research output: three operator interviews, with at least one providing a week of anonymized batch schedules, balances and funding records. This is a working target, not market evidence.
 
-Görüşmeler şu soruları cevaplamalı:
+The interviews should answer:
 
-- Ödeme hangi tam varlık kimliğiyle, hangi hesaptan ve hangi saatte hazır olmak zorunda?
-- Batch tutarı ne zaman kesinleşiyor; değişiklik, iptal ve kısmi ödeme nasıl bildiriliyor?
-- Onay bekleme süresi, fonlama sıklığı, tutulan rezerv ve manuel mutabakat işi ne kadar?
-- Son gecikme hangi nedenle oluştu: fonlama, onay, taşıma, alıcı hazırlığı veya payout sistemi?
-- Mevcut script/operasyon hangi kararı veremiyor? Flux'un önerisi için ödeme veya pilot isteği var mı?
+- Which exact asset must be available, in which account, and by what time for the payout?
+- When is the batch amount finalized, and how are changes, cancellations and partial payouts reported?
+- How long do approvals take, how often is funding needed, what reserve is held and how much manual reconciliation is required?
+- What caused the most recent delay: funding, approval, transport, recipient readiness or the payout system?
+- Which decision cannot be made by the current script or operating process? Is there willingness to pay for or pilot Flux's proposal?
 
-**Devam kararı:** örnek kayıtlarla tekrarlayan bir karar/tahsis/kanıt sorunu ve denemeye istekli bir operatör gösterebilmek. Sorun yalnızca seyrek manuel transfer ise ürünü genişletmek yerine daha dar bir entegrasyon aracı olarak yeniden değerlendirmek.
+**Decision to proceed:** demonstrate a recurring decision, allocation or evidence problem using sample records, together with an operator willing to try the product. If the problem is only an occasional manual transfer, reassess the product as a narrower integration tool rather than expanding it.
 
-## 5. Bir sonraki teslim: Liquidity Planner sandbox
+## 5. Next deliverable: Liquidity Planner sandbox
 
-Mevcut uygulamanın sayfaları ve fonlama akışı korunur. Önerilen yeni `Liquidity plan` ekranı ayrı bir navigasyon öğesi olarak eklenir; henüz mevcut UI veya API'de yoktur.
+The existing application pages and funding flow are preserved. The proposed new `Liquidity plan` screen is added as a separate navigation item; it does not yet exist in the current UI or API.
 
-| Parça             | İlk teslim kapsamı                                                                                                                                                           |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Obligation girişi | Manuel veya doğrulanmış dosya/API girdisi; partner ID, revision, tam varlık kimliği, hesap, kalan ödeme tutarı, deadline, durum. SDP entegrasyonu tamamlanmış gibi sunulmaz. |
-| Zaman görünümü    | Aynı hesaptaki batch'ler için 1/6/24 saat görünümü. Bilinen yükümlülüklerden deterministik projeksiyon; ML talep tahmini yok.                                                |
-| Bakiye ve tahsis  | Gözlem zamanı, korunacak rezerv, mevcut batch tahsisleri, dışarıdan beklenen fon ve kullanılabilir fon ayrı gösterilir.                                                      |
-| Planlama          | Deadline sırası; sabit rotanın uygunluğu; fon ihtiyacı; önerilen gönderim zamanı; en geç başlatma zamanı; uygulanamayan planın gerekçesi.                                    |
-| Açıklanabilirlik  | Her karar için kullanılan veri sürümleri, hesap, rota varsayımı, politika ve insan tarafından okunabilir gerekçe.                                                            |
-| Plan sürümleri    | Tutar, zaman, politika veya bakiye değişince yeni plan sürümü; önceki öneri korunur. Eski onay yeni ekonomik niyete aktarılmaz.                                              |
-| Yürütme           | İlk aşamada yalnızca öneri/önizleme. Sonraki aşamada onaylı plan mevcut sandbox funding akışına bağlanır.                                                                    |
-| Durum             | Tasarım etiketleri: covered, funding needed, at risk, blocked. Mevcut `FundingStatus` değerleriyle karıştırılmaz.                                                            |
+| Component              | Initial delivery scope                                                                                                                                                                    |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Obligation ingestion   | Manual entry or validated file/API input; partner ID, revision, full asset identity, account, remaining payout amount, deadline and status. SDP integration is not presented as complete. |
+| Time view              | A 1/6/24-hour view of batches in the same account. Deterministic projections from known obligations; no ML demand forecasting.                                                            |
+| Balance and allocation | Observation time, protected reserve, existing batch allocations, expected incoming funds and usable funds are shown separately.                                                           |
+| Planning               | Deadline order; eligibility of the fixed route; funding need; suggested submission time; latest start time; explanation of an infeasible plan.                                            |
+| Explainability         | Data versions, calculation, route assumption, policy and human-readable rationale for each decision.                                                                                      |
+| Plan versions          | A new plan version when the amount, timing, policy or balance changes; the previous proposal is retained. Old approval is not transferred to a new economic intent.                       |
+| Execution              | Initially a recommendation/preview only. A later stage connects the approved plan to the existing sandbox funding flow.                                                                   |
+| Status                 | Proposed labels: covered, funding needed, at risk, blocked. These are distinct from existing `FundingStatus` values.                                                                      |
 
-İlk plan birden fazla batch'i kapsayabilir; **her funding intent tek batch'e bağlı kalır**. Tek transferi birçok batch'e dağıtma, bir batch'i birçok rotaya bölme ve en ucuz kombinasyonu çözme ertelenir. Böylece mevcut bire bir ilişki üzerinde kontrollü ilerlenir.
+The initial plan may cover multiple batches; **each funding intent remains linked to one batch**. Allocating one transfer across many batches, splitting one batch across multiple routes and solving for the cheapest combination are deferred. This allows controlled progress on the existing one-to-one relationship.
 
-### Zaman ve para modeli
+### Time and money model
 
-Hesaplar tam varlık kimliği ve settlement hesabı bazında ayrılır. Her deadline için örnek projeksiyon:
+Calculations are separated by full asset identity and settlement account. An example projection for each deadline:
 
 ```text
 projected_balance(t)
@@ -104,63 +104,63 @@ latest_start
   - safety_buffer
 ```
 
-`modeled_future_net_receipts` önerilmiş/bekleyen fonları kapsayan bir senaryo varsayımıdır; gerçekleşmiş bakiye değildir. Kaynak gönderimi belirsizse bu varsayım normal senaryodan çıkarılır ve risk görünümünde takip edilir. Henüz alınmamış fon hiçbir zaman payout-ready hesabına eklenmez. Alınmış receipt zaten snapshot bakiyesindeyse yeniden giriş olarak sayılmaz.
+`modeled_future_net_receipts` is a scenario assumption covering proposed/pending funding; it is not realized balance. If source submission is ambiguous, that assumption is removed from the normal scenario and tracked in the risk view. Funds not yet received are never added to the payout-ready calculation. If a received receipt is already included in the snapshot balance, it is not counted again as an inflow.
 
-Mevcut batch tahsisleri ilgili obligation'a bağlanır. Aynı yükümlülük hem kalan payout hem de ek bir rezerv indirimi olarak iki kez sayılmaz. Horizon dışında kalan mevcut taahhütler kullanılabilir fonu sınırlar; bilinmeyen batch eşlemesi varsa plan yürütmeye kapalı olur.
+Existing batch allocations are linked to the corresponding obligation. The same obligation is not counted twice as both a remaining payout and an additional reserve deduction. Existing commitments outside the horizon constrain available funds; if a batch mapping is unknown, the plan cannot be executed.
 
-Route budget ilk sandbox'ta açıkça senaryo parametresidir. Canlıda seçilmiş yolun ölçülmüş dağılımı ve operatörün risk tercihiyle belirlenir; p95 gibi bir ölçüm teslim garantisi değildir. `latest_start` geçmişse sistem başarılı plan uydurmaz; deadline riskini gösterir ve yürütmeyi politika uyarınca engeller.
+The route budget is explicitly a scenario parameter in the initial sandbox. In live operation, it is determined by the measured distribution for the selected path and the operator's risk preference; a measure such as p95 is not a delivery guarantee. If `latest_start` has passed, the system does not invent a successful plan; it shows deadline risk and blocks execution according to policy.
 
-### Gösterilecek örnek
+### Demonstration example
 
-Varsayım: aynı hesap ve aynı varlık, başlangıç bakiyesi 35.000, minimum rezerv 10.000, başka tahsis/giriş ve ücret yok. Her top-up zamanında gelir. Bunlar sentetik demo verileridir.
+Assumptions: the same account and asset, an opening balance of 35,000, a minimum reserve of 10,000, and no other allocations, inflows or fees. Each top-up arrives on time. These are synthetic demo data.
 
-| Batch zamanı |   Ödeme | Öncesinde gerekli ek net fon | Ödeme sonrası bakiye |
-| ------------ | ------: | ---------------------------: | -------------------: |
-| 09:00        |  80.000 |                       55.000 |               10.000 |
-| 11:30        |  40.000 |                       40.000 |               10.000 |
-| 15:00        | 100.000 |                      100.000 |               10.000 |
+| Batch time |  Payout | Additional net funding needed beforehand | Balance after payout |
+| ---------- | ------: | ---------------------------------------: | -------------------: |
+| 09:00      |  80,000 |                                   55,000 |               10,000 |
+| 11:30      |  40,000 |                                   40,000 |               10,000 |
+| 15:00      | 100,000 |                                  100,000 |               10,000 |
 
-Toplam ek fon 195.000. Paylaşılan metindeki 185.000, rezerv sıfır kabul edilirse doğrudur. Yenilik toplamı değiştirmek değil, fonların hangi zamanda hangi batch için gerektiğini ve o zamanın karşılanıp karşılanamayacağını göstermek.
+Total additional funding is 195,000. The 185,000 in the shared critique is correct if the reserve is assumed to be zero. The new capability is showing when funds are needed for each batch and whether that timing can be met, rather than changing the total.
 
-Demo ikinci adımında ilk transferin geciktiği varsayılır: etkilenen batch riskli görünür; belirsiz eski transfer dururken otomatik alternatif gönderim oluşmaz. Üçüncü adımda henüz gönderilmemiş bir batch'in tutarı değiştirilir: plan revize edilir ve ilgili eski onay geçersizleşir.
+In the second demo step, assume the first transfer is delayed: the affected batch appears at risk; no automatic alternative submission is created while the original transfer remains ambiguous. In the third step, change the amount of a batch whose funding has not yet been submitted: the plan is revised and the corresponding old approval is invalidated.
 
-## 6. Tasarımda eklenecek kayıtlar ve güvenlik sınırları
+## 6. Proposed records and safety boundaries
 
-Bunlar önerilen modellerdir; mevcut migration veya API sözleşmesi değildir.
+These are proposed models, not existing migrations or API contracts.
 
-| Kayıt               | Sorumluluk                                                                                                                  |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `PaymentObligation` | Operatör/partner kapsamında benzersiz batch kimliği, revision, kalan tutar, deadline, varlık/hesap ve iptal/ödeme durumu.   |
-| `LiquidityPlan`     | Snapshot/checkpoint, horizon, politika sürümü, input revisions, zaman projeksiyonu, gerekçe ve plan revision.               |
-| `PlanAllocation`    | Mevcut veya planlanan fonun hangi obligation'a ayrıldığı; confirmed/projected ayrımı; reservation sürümü.                   |
-| `FundingIntent`     | İlk geçişte mevcut funding request ile eşlenir; obligation revision ve plan revision bağlantısı eklenir.                    |
-| `RouteAssessment`   | Tek rota için uygunluk, tam kaynak/hedef varlık kimliği, net alınacak tutar, fee/quote expiry, zaman bütçesi ve red nedeni. |
+| Record              | Responsibility                                                                                                                                 |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PaymentObligation` | A batch identity unique within the operator/partner scope, revision, remaining amount, deadline, asset/account and cancellation/payout status. |
+| `LiquidityPlan`     | Snapshot/checkpoint, horizon, policy version, input revisions, time projection, rationale and plan revision.                                   |
+| `PlanAllocation`    | The obligation to which existing or planned funds are allocated; confirmed/projected distinction; reservation version.                         |
+| `FundingIntent`     | Initially maps to the existing funding request; adds links to obligation revision and plan revision.                                           |
+| `RouteAssessment`   | Eligibility for one route, full source/destination asset identity, net receipt amount, fee/quote expiry, time budget and rejection reason.     |
 
-Plan uygulanırken input revision ve bakiye/politika sürümü transaction içinde tekrar kontrol edilir. İki açık plan aynı mevcut fonu veya aynı obligation'ı sessizce rezerve edemez. Material intent değişirse tekrar onay gerekir.
+When a plan is applied, input revisions and balance/policy versions are checked again within a transaction. Two open plans cannot silently reserve the same existing funds or the same obligation. A material change to the intent requires new approval.
 
-İmzalama/gönderim için kalıcı işlem kimliği ekonomik hareketten önce oluşturulmalı; crash recovery aynı kimliği izlemeli. Aynı signed transaction'ın tekrar yayınlanmasıyla yeni bir ekonomik gönderim oluşturmak farklı işlemlerdir. Kaynakta ne olduğu bilinmiyorsa yeni transfer veya rota failover yapılmaz; operatöre inceleme gereği gösterilir.
+A durable transaction identity must be created before economic movement for signing/submission; crash recovery must follow the same identity. Rebroadcasting the same signed transaction and creating a new economic submission are different operations. If the source outcome is unknown, no new transfer or route failover is performed; the operator is shown that review is required.
 
-Receipt kredisi ve tüketimi tekilleştirilir. Webhook at-least-once teslim edilir; partner event kimliğine göre deduplicate eder. **Liquidity-ready, payout-executed değildir.** Canlı payout başarısı, partnerin doğrulanmış durum kaydından alınır. Fonlama sonrası iptal edilmiş batch'in parası otomatik geri taşınmaz.
+Receipt credit and consumption are deduplicated. Webhooks use at-least-once delivery; the partner deduplicates by event identity. **Liquidity-ready is not payout-executed.** Live payout success comes from the partner's verified status record. Funds for a batch cancelled after funding are not automatically transferred back.
 
-## 7. Teslim sırası ve kabul kapıları
+## 7. Delivery order and acceptance gates
 
-| Sıra | Çıktı                                            | Kabul kanıtı                                                                                                                   |
-| ---- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| 1    | Operatör problemi ve örnek veri                  | Mevcut iş akışı, varlık, deadline ve baseline; veri yoksa yalnızca sentetik demo iddiası.                                      |
-| 2    | Saf deterministik planner + ayrı önizleme ekranı | Üç batch örneği, zaman/rezerv grafiği, hesap açıklaması; transfer veya mevcut tahsis değişikliği yok.                          |
-| 3    | Plan revision ve sandbox yürütme bağlantısı      | Aynı fonu iki kez ayırmama; eski onayın reddi; gecikmede yeni send olmaması; restart ve tekrar çağrı testleri.                 |
-| 4    | Bir partner adapter + tek gerçek rota            | Gerçek obligation erişimi, source signing/recovery, hedef receivability ve korele receipt kanıtı.                              |
-| 5    | Kontrollü pilot                                  | Mevcut yönteme karşı sonuçlar, tekrar eden gerçek batch'ler ve operatör değerlendirmesi.                                       |
-| 6    | İkinci rota / ek treasury                        | İlk yolun çözemediği, operatörce doğrulanmış ihtiyaç ve aynı hedef varlık için uygunluk veya ayrıca onaylanan dönüşüm kapsamı. |
+| Order | Output                                               | Acceptance evidence                                                                                                                                 |
+| ----- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1     | Operator problem and sample data                     | Existing workflow, asset, deadline and baseline; without data, claims are limited to a synthetic demo.                                              |
+| 2     | Pure deterministic planner + separate preview screen | Three-batch example, time/reserve chart and calculation explanation; no transfers or changes to existing allocations.                               |
+| 3     | Plan revisions and sandbox execution connection      | No double allocation of funds; rejection of stale approval; no new submission on delay; restart and repeated-call tests.                            |
+| 4     | One partner adapter + one real route                 | Access to real obligations, source signing/recovery, destination receivability and correlated receipt evidence.                                     |
+| 5     | Controlled pilot                                     | Results against the existing approach, repeated real batches and operator feedback.                                                                 |
+| 6     | Second route / additional treasury                   | An operator-validated need the first path cannot address, and eligibility for the same destination asset or a separately approved conversion scope. |
 
-Planner kabul senaryoları: aynı deadline'da yarışan batch'ler; horizon sınırları ve UTC normalizasyonu; stale balance; yetersiz source fon/gas; gecikmiş veya belirsiz receipt; yanlış varlık/issuer; batch revision/iptal; politika değişimi; kaynak/günlük cap; quote expiry; restart ve tekrarlanan input. İlk teslim onay/gönderim yan etkisi üretmez.
+Planner acceptance scenarios: batches competing at the same deadline; horizon boundaries and UTC normalization; stale balance; insufficient source funds/gas; delayed or ambiguous receipts; incorrect asset/issuer; batch revision/cancellation; policy changes; source/daily caps; quote expiry; restart and repeated input. The initial delivery produces no approval/submission side effects.
 
-Başarı ölçümü aynı operator kayıtları üzerinden yapılır: zaman ağırlıklı ortalama Stellar inventory, fonlama kaynaklı readiness gecikmeleri, toplam ücret, manuel müdahale sayısı ve mutabakat süresi. Karşılaştırma en az mevcut operasyonu, basit threshold yaklaşımını ve önerilen planner'ı kapsar. Daha düşük inventory elde ederken gecikme veya operasyon yükü artırmak otomatik başarı değildir.
+Success is measured using the same operator records: time-weighted average Stellar inventory, funding-related readiness delays, total fees, manual intervention count and reconciliation time. The comparison covers at least the current operation, a simple threshold approach and the proposed planner. Lower inventory accompanied by more delays or operational burden is not automatically a success.
 
-## 8. SCF ve dış iletişim
+## 8. SCF and external communication
 
-Konumlandırmayı treasury karar ve mutabakat problemi üzerinden kurarız; protokol sayısını ürün değeri yerine koymayız. Güncel Integration Track, mevcut traction ve gerçek kullanım odaklı ölçüm istiyor; çoklu entegrasyon eklemek bu koşulları karşılamaz. Flux için uygunluk henüz doğrulanmış değil. [SCF Integration Track](https://stellar.gitbook.io/scf-handbook/scf-awards/build-award/integration-track)
+Positioning centers on treasury decisions and reconciliation; protocol count is not a substitute for product value. The current Integration Track requires existing traction and measures focused on real usage; adding multiple integrations does not satisfy those conditions. Flux's eligibility is not yet confirmed. [SCF Integration Track](https://stellar.gitbook.io/scf-handbook/scf-awards/build-award/integration-track)
 
-Landing page mevcut sandbox'ı gösterebilir. Planner henüz uygulanmadığından ekranları veya çoklu rota seçimini çalışır özellik olarak duyurmayız. İlk planner demosu hazır olduğunda ürün anlatımı somut ekranlarla güncellenir.
+The landing page may show the existing sandbox. Because the planner is not yet implemented, its screens or multi-route selection will not be advertised as working features. Once the first planner demo is ready, the product narrative will be updated with concrete screens.
 
-İlk mühendislik adımı **salt okunur, üç batch'li Liquidity Planner sandbox**. Bu belge backend davranışını, mevcut uygulamanın ekranlarını veya ana ağ işlem yetkilerini değiştirmez.
+The first engineering step is a **read-only, three-batch Liquidity Planner sandbox**. This document does not change backend behavior, existing application screens or mainnet transaction permissions.
