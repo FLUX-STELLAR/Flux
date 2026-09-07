@@ -13,7 +13,7 @@ npm ci
 npm run dev
 ```
 
-Open **http://127.0.0.1:4337**. The development server also serves the React application. On first launch it creates `data/flux.sqlite` and three clearly sandboxed sample funding requests. State persists across restarts. To start an empty separate workspace, set `FLUX_SEED=false` and a new `FLUX_DB_PATH`.
+Open **http://127.0.0.1:4337**. The development server also serves the React application. On first launch it creates `backend/data/flux.sqlite` and three clearly sandboxed sample funding requests. State persists across restarts. To start an empty separate workspace, set `FLUX_SEED=false` and a new `FLUX_DB_PATH`.
 
 Production asset build, still in local sandbox mode:
 
@@ -46,9 +46,11 @@ backend/src/          Express API, SQLite store, funding service and worker
 backend/src/adapters/ Persistent sandbox transfer adapter
 backend/src/sdk/      Partner API client and webhook verifier
 backend/tests/        Core, API and runtime safety tests
+backend/data/         Local SQLite state, created on first run and never committed
+frontend/index.html   Vite entry point and app shell
 frontend/src/         React operations workspace
 frontend/tests/       Browser journeys
-frontend/index.html   Vite entry point and app shell
+frontend/dist/        Production asset build, served by the backend
 docs/                 Build plan, decisions, API and pilot-readiness matrix
 ```
 
@@ -70,7 +72,7 @@ Optional `.env` is loaded at startup; copy the shape from `.env.example`. Enviro
 | Variable              | Default / purpose                                         |
 | --------------------- | --------------------------------------------------------- |
 | `PORT`                | `4337` — API and UI, loopback only                        |
-| `FLUX_DB_PATH`        | `data/flux.sqlite`                                        |
+| `FLUX_DB_PATH`        | `backend/data/flux.sqlite`                                |
 | `FLUX_MODE`           | `sandbox`; all other modes are rejected                   |
 | `FLUX_SEED`           | Set `false` to omit initial sample requests               |
 | `FLUX_API_TOKEN`      | Optional 32+ character partner bearer token               |
@@ -87,6 +89,5 @@ The local session bootstrap trusts local access. It is **not** a production logi
 - [Implementation decisions](docs/ARCHITECTURE.md)
 - [API and recovery runbook](docs/API_AND_OPERATIONS.md)
 - [Acceptance and live pilot gates](docs/ACCEPTANCE.md)
-- [PRD review in Turkish](FLUX_PRD_INCELEME_RAPORU.md)
 
 The original PRD remains unchanged. Live operator onboarding, actual wallet signing, verified LayerZero/USDT0 or CCTP transport, real Stellar observation and SDP integration are outstanding pilot milestones; the sandbox does not claim those integrations are complete.

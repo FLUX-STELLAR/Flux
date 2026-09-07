@@ -12,7 +12,7 @@ if (existsSync('.env')) loadEnvFile('.env');
 if (process.env.FLUX_MODE && process.env.FLUX_MODE !== 'sandbox')
   throw new Error('Only sandbox mode is implemented. Live transfers are not enabled.');
 const port = Number(process.env.PORT || 4337);
-const store = new Store(process.env.FLUX_DB_PATH || 'data/flux.sqlite');
+const store = new Store(process.env.FLUX_DB_PATH || 'backend/data/flux.sqlite');
 function secret(key: string, configured?: string) {
   if (configured && configured.length < 32)
     throw new Error(`${key} must contain at least 32 characters.`);
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV !== 'production') {
   });
   app.use(vite.middlewares);
 } else {
-  const root = resolve('dist/client');
+  const root = resolve(import.meta.dirname, '../../frontend/dist/client');
   if (!existsSync(root)) throw new Error('Run npm run build before npm start.');
   app.use(express.static(root));
   app.get('/{*path}', (_req, res) => res.sendFile(resolve(root, 'index.html')));
