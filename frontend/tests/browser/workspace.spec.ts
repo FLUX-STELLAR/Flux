@@ -114,3 +114,15 @@ test('mobile navigation, policy persistence, audit and integration pages work', 
     true,
   );
 });
+
+test('liquidity planner previews obligations without creating a request', async ({ page }) => {
+  await page.goto('/app');
+  await page.getByRole('button', { name: 'Liquidity planner', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Liquidity planner', exact: true })).toBeVisible();
+  await expect(page.getByText('Read-only sandbox projection')).toBeVisible();
+  await expect(page.locator('.planner-row')).toHaveCount(3);
+  await page.getByRole('button', { name: '1h', exact: true }).click();
+  await expect(page.locator('.planner-controls button.selected')).toHaveText('1h');
+  await expect(page.locator('.planner-row').first()).toBeVisible();
+  await expect(page.getByRole('button', { name: 'New funding request' })).toHaveCount(0);
+});
