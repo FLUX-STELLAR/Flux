@@ -131,7 +131,7 @@ export default function LandingPage({ enter }: Props) {
         <section className="lp-hero" aria-labelledby="hero-title">
           <div className="lp-hero-copy">
             <a className="lp-announcement" href="#how-it-works">
-              <span className="lp-status-dot" /> Purpose-built for Stellar payments{' '}
+              <span className="lp-status-dot" /> Treasury control for Stellar payouts{' '}
               <ChevronRight size={13} />
             </a>
             <h1 id="hero-title">
@@ -140,10 +140,24 @@ export default function LandingPage({ enter }: Props) {
               <span>Right on time.</span>
             </h1>
             <p>
-              Keep your treasury flexible. Bring liquidity to Stellar
-              <br className="lp-desktop-break" /> when your payouts need it, with control at every
-              step.
+              We’re building a treasury control layer that turns upcoming Stellar payouts into
+              funding plans, approvals, and reconciled receipts.
             </p>
+            <div
+              className="lp-route"
+              aria-label="Proposed first funding route: USDT0 via LayerZero to Stellar"
+            >
+              <span className="lp-route-label">Proposed first route</span>
+              <div className="lp-route-path">
+                <span className="lp-route-asset">USDT0</span>
+                <span className="lp-route-via">via</span>
+                <strong>LayerZero</strong>
+                <ArrowRight size={16} aria-hidden="true" />
+                <span className="lp-route-destination">
+                  <StellarMark /> Stellar
+                </span>
+              </div>
+            </div>
             <div className="lp-hero-actions">
               <a href="/app" onClick={launch} className="lp-button">
                 Explore the workspace <ArrowUpRight size={17} />
@@ -153,13 +167,13 @@ export default function LandingPage({ enter }: Props) {
               </a>
             </div>
             <span className="lp-sandbox-note">
-              <span /> Interactive sandbox · Simulated funds
+              <span /> Try the funding sandbox · Planner & live route in development
             </span>
           </div>
 
           <div
             className="lp-flow"
-            aria-label="Illustrative funding flow: an EVM treasury funds a Stellar payout through Flux policy and reconciliation"
+            aria-label="Illustrative USDT0 funding flow: the proposed LayerZero route connects an EVM treasury to Stellar, with Flux policy and reconciliation. Transfers are simulated."
           >
             <div className="lp-flow-grid" aria-hidden="true" />
             <div className="lp-orbits" aria-hidden="true">
@@ -168,7 +182,7 @@ export default function LandingPage({ enter }: Props) {
               <i />
             </div>
             <div className="lp-flow-label lp-flow-label-top">
-              <span /> THE PATH FROM CAPITAL TO PAYOUT
+              <span /> USDT0 FUNDING. TIED TO YOUR PAYOUTS.
             </div>
             <div className="lp-flow-body">
               <div className="lp-transfer-card lp-source-card">
@@ -178,7 +192,7 @@ export default function LandingPage({ enter }: Props) {
                   </span>
                   <div>
                     <strong>Your treasury</strong>
-                    <span>EVM source network</span>
+                    <span>USDT0 · EVM treasury</span>
                   </div>
                   <span className="lp-card-indicator" />
                 </div>
@@ -205,7 +219,7 @@ export default function LandingPage({ enter }: Props) {
                   <img src="/favicon.svg" width="76" height="76" alt="Flux" />
                 </div>
                 <span>Orchestrated by Flux</span>
-                <small>Approve. Track. Reconcile.</small>
+                <small>LayerZero route · proposed</small>
               </div>
               <div className="lp-connector lp-connector-second" aria-hidden="true">
                 <span />
@@ -219,7 +233,7 @@ export default function LandingPage({ enter }: Props) {
                   </span>
                   <div>
                     <strong>Stellar settlement</strong>
-                    <span>Destination account</span>
+                    <span>USDT0 · Payout account</span>
                   </div>
                   <span className="lp-card-indicator" />
                 </div>
@@ -252,9 +266,9 @@ export default function LandingPage({ enter }: Props) {
           <div>
             <span className="lp-principle-index">01 /</span>
             <p>
-              Fund the shortfall.
+              Start with the obligation.
               <br />
-              <strong>Keep capital flexible.</strong>
+              <strong>Fund with a purpose.</strong>
             </p>
           </div>
           <div>
@@ -288,8 +302,8 @@ export default function LandingPage({ enter }: Props) {
               to funding-ready.
             </h2>
             <p>
-              One connected workflow for the moments
-              <br className="lp-desktop-break" /> that matter to your treasury.
+              Explore today’s funding sandbox: calculate the need,
+              <br className="lp-desktop-break" /> approve the intent, and reconcile the receipt.
             </p>
           </div>
           <div className="lp-workflow-layout">
@@ -471,23 +485,23 @@ export default function LandingPage({ enter }: Props) {
           <div className="lp-feature-grid">
             <article>
               <span className="lp-feature-icon">
-                <ShieldCheck size={24} />
+                <CircleDot size={24} />
               </span>
-              <h3>Policy before movement.</h3>
+              <h3>Plan around obligations.</h3>
               <p>
-                Operating reserves, funding caps, and destination restrictions define what can move,
-                before it does.
+                Next up: a 1/6/24-hour liquidity view across upcoming batches. See what needs
+                funding, when it’s needed, and which deadlines are at risk.
               </p>
-              <span className="lp-feature-tag">Guardrails by design</span>
+              <span className="lp-feature-tag">Liquidity Planner · In development</span>
             </article>
             <article>
               <span className="lp-feature-icon">
                 <Fingerprint size={24} />
               </span>
-              <h3>Evidence at every step.</h3>
+              <h3>Control beyond the transfer.</h3>
               <p>
-                Connect the batch, approved intent, transfer, and receipt in one auditable funding
-                history.
+                Keep reserves and approvals tied to each batch. Follow the funding intent through
+                transfer evidence to a reconciled Stellar receipt.
               </p>
               <span className="lp-feature-tag">From intent to receipt</span>
             </article>
@@ -545,7 +559,7 @@ export default function LandingPage({ enter }: Props) {
           <a href="#top" aria-label="Flux home">
             <Brand />
           </a>
-          <p>Just-in-time liquidity. Built for Stellar.</p>
+          <p>Treasury control. Built for Stellar.</p>
           <a href={repo} target="_blank" rel="noreferrer">
             <Code2 size={16} /> View on GitHub <ArrowUpRight size={14} />
           </a>

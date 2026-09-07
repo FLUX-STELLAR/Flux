@@ -78,7 +78,7 @@
   align-items: center;
   gap: 4px;
   color: #64646c;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
 }
 .lp-desktop-nav a:hover,
@@ -96,7 +96,7 @@
   background: var(--lp-ink);
   border-radius: 10px;
   color: white;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 550;
   line-height: 1.2;
   white-space: nowrap;
@@ -114,7 +114,7 @@
 }
 .lp-button-small {
   padding: 12px 17px;
-  font-size: 12px;
+  font-size: 14px;
   gap: 17px;
   border-radius: 8px;
 }
@@ -139,12 +139,12 @@
   padding: 13px 10px;
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 16px;
 }
 .lp-hero {
   max-width: 1200px;
   margin: auto;
-  padding: 71px 40px 0;
+  padding: 58px 40px 0;
 }
 .lp-hero-copy {
   text-align: center;
@@ -160,7 +160,7 @@
   border: 1px solid #e3e3e8;
   border-radius: 30px;
   background: #ffffffb0;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   color: #65656e;
 }
@@ -188,9 +188,11 @@
   color: var(--lp-blue);
 }
 .lp-hero-copy > p {
-  font-size: 16px;
+  max-width: 650px;
+  margin: 0 auto;
+  font-size: 18px;
   line-height: 1.75;
-  color: #72727a;
+  color: #62626c;
   letter-spacing: -0.2px;
 }
 .lp-hero-actions {
@@ -204,14 +206,14 @@
   display: inline-flex;
   gap: 11px;
   align-items: center;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
 }
 .lp-sandbox-note {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 10px;
+  font-size: 12px;
   color: #777780;
 }
 .lp-sandbox-note > span {
@@ -262,7 +264,7 @@
   justify-content: center;
   gap: 8px;
   font-family: 'SF Mono', Menlo, monospace;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 1.5px;
   color: #85858e;
 }
@@ -321,11 +323,11 @@
   gap: 4px;
 }
 .lp-card-header strong {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
 }
 .lp-card-header div > span {
-  font-size: 9px;
+  font-size: 11px;
   color: #83838c;
 }
 .lp-card-indicator {
@@ -341,7 +343,7 @@
   gap: 7px;
 }
 .lp-card-amount > span {
-  font-size: 10px;
+  font-size: 12px;
   color: #82828c;
 }
 .lp-card-amount > strong {
@@ -356,7 +358,7 @@
 }
 .lp-card-amount small {
   margin-left: 8px;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0;
   color: #72727d;
   font-weight: 500;
@@ -368,7 +370,7 @@
   padding: 11px 17px;
   border-top: 1px solid #f0f0f4;
   background: #fcfcfd;
-  font-size: 9px;
+  font-size: 11px;
   color: #75757f;
 }
 .lp-card-footer > :last-child {
@@ -428,12 +430,12 @@
   border-radius: 21px;
 }
 .lp-flow-engine > span {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   margin-top: 17px;
 }
 .lp-flow-engine > small {
-  font-size: 8px;
+  font-size: 10px;
   color: #83838d;
   margin-top: 5px;
 }
@@ -445,7 +447,7 @@
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  font-size: 9px;
+  font-size: 11px;
   color: #85858e;
 }
 .lp-flow-bottom > span {
@@ -476,12 +478,12 @@
 }
 .lp-principle-index {
   font-family: 'SF Mono', Menlo, monospace;
-  font-size: 9px;
+  font-size: 11px;
   color: #8e8e99;
   padding-top: 4px;
 }
 .lp-principles p {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.75;
   letter-spacing: -0.1px;
 }
@@ -495,7 +497,7 @@
   padding: 113px 0 0;
 }
 .lp-eyebrow {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 1.6px;
   color: #777782;
@@ -511,7 +513,7 @@
   text-align: center;
 }
 .lp-section-heading > p {
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 19px;
   line-height: 1.75;
 }
@@ -545,7 +547,7 @@
 }
 .lp-step-number {
   font-family: 'SF Mono', Menlo, monospace;
-  font-size: 10px;
+  font-size: 12px;
   color: #8b8b95;
   line-height: 1.9;
 }
@@ -553,14 +555,14 @@
   flex: 1;
 }
 .lp-step strong {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 550;
   letter-spacing: -0.3px;
 }
 .lp-step-description {
   display: block;
   margin-top: 12px;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.8;
   color: #76767f;
 }
@@ -590,7 +592,7 @@
   justify-content: space-between;
   margin-bottom: 20px;
   color: #83838e;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 1.1px;
 }
 .lp-demo-dots {
@@ -606,7 +608,7 @@
 .lp-demo-sandbox {
   border: 1px solid #d9d9e1;
   padding: 4px 6px;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0;
   border-radius: 4px;
 }
@@ -616,7 +618,7 @@
   border: 1px solid #e4e4eb;
   box-shadow: 0 10px 30px #24243606;
   padding: 22px;
-  min-height: 336px;
+  min-height: 365px;
   animation: lp-panel-in 0.3s both;
 }
 .lp-demo-heading {
@@ -635,19 +637,19 @@
   place-items: center;
 }
 .lp-demo-heading h3 {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.2px;
 }
 .lp-demo-heading p {
-  font-size: 9px;
+  font-size: 11px;
   margin-top: 4px;
 }
 .lp-demo-badge {
   margin-left: auto;
   border-radius: 20px;
   padding: 5px 8px;
-  font-size: 8px;
+  font-size: 10px;
   color: #4275ad;
   background: #edf4fd;
   white-space: nowrap;
@@ -657,13 +659,13 @@
   background: #eaf7f0;
 }
 .lp-calculation {
-  min-height: 201px;
+  min-height: 225px;
 }
 .lp-calculation > div {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  font-size: 11px;
+  font-size: 13px;
   margin-bottom: 16px;
   color: #777780;
 }
@@ -681,7 +683,7 @@
 }
 .lp-calculation-total small {
   display: block;
-  font-size: 8px;
+  font-size: 10px;
   color: #92929d;
   margin-top: 7px;
 }
@@ -699,20 +701,20 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 9px;
+  font-size: 11px;
   color: #868692;
 }
 .lp-demo-caption {
   display: flex;
   justify-content: space-between;
   margin-top: 17px;
-  font-size: 7px;
+  font-size: 9px;
   letter-spacing: 1.4px;
   color: #878792;
 }
 .lp-approval,
 .lp-reconciliation {
-  min-height: 201px;
+  min-height: 225px;
 }
 .lp-approval-amount {
   display: flex;
@@ -722,7 +724,7 @@
   gap: 8px;
 }
 .lp-approval-amount > span {
-  font-size: 10px;
+  font-size: 12px;
   color: #73737e;
 }
 .lp-approval-amount > strong {
@@ -731,7 +733,7 @@
   font-weight: 550;
 }
 .lp-approval-amount small {
-  font-size: 8px;
+  font-size: 10px;
   color: #84848e;
   letter-spacing: 0;
   font-weight: 500;
@@ -741,7 +743,7 @@
   align-items: center;
   gap: 8px;
   padding: 7px 0;
-  font-size: 10px;
+  font-size: 12px;
   color: #666672;
 }
 .lp-check-row > svg {
@@ -756,7 +758,7 @@
   border-radius: 7px;
   padding: 10px;
   margin: 12px 0 14px;
-  font-size: 9px;
+  font-size: 11px;
   color: #64758d;
 }
 .lp-check-circle {
@@ -770,7 +772,7 @@
 }
 .lp-reconciliation .lp-check-row > span:last-child {
   margin-left: auto;
-  font-size: 8px;
+  font-size: 10px;
   color: #198568;
 }
 .lp-ready-banner {
@@ -786,12 +788,12 @@
 }
 .lp-ready-banner strong {
   display: block;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 550;
 }
 .lp-ready-banner div > span {
   display: block;
-  font-size: 9px;
+  font-size: 11px;
   color: #648676;
   margin-top: 4px;
 }
@@ -805,7 +807,7 @@
   gap: 35px;
 }
 .lp-control-heading > p {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.9;
   padding-bottom: 3px;
 }
@@ -836,12 +838,12 @@
   stroke-width: 1.4;
 }
 .lp-feature-grid h3 {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 550;
   letter-spacing: -0.4px;
 }
 .lp-feature-grid p {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.85;
   margin-top: 12px;
 }
@@ -851,7 +853,7 @@
   align-items: center;
   gap: 8px;
   margin-top: 28px;
-  font-size: 9px;
+  font-size: 11px;
   color: #7b7b86;
 }
 .lp-feature-tag::before {
@@ -886,7 +888,7 @@
 }
 .lp-final-cta .lp-eyebrow {
   color: #9696a3;
-  font-size: 8px;
+  font-size: 10px;
 }
 .lp-final-cta h2 {
   font-size: 49px;
@@ -897,7 +899,7 @@
 }
 .lp-final-cta p {
   color: #a4a4b0;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.8;
   margin-top: 20px;
 }
@@ -906,7 +908,7 @@
   color: #1d1d1f;
   margin-top: 26px;
   padding: 15px 19px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .lp-button-white:hover {
   background: #eaf2ff;
@@ -914,7 +916,7 @@
 .lp-cta-note {
   display: block;
   margin-top: 14px;
-  font-size: 9px;
+  font-size: 11px;
   color: #9a9aa8;
 }
 .lp-cta-orbits {
@@ -977,14 +979,14 @@
   height: 27px;
 }
 .lp-footer-top > p {
-  font-size: 11px;
+  font-size: 13px;
 }
 .lp-footer-top > a:last-child {
   margin-left: auto;
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 10px;
+  font-size: 12px;
 }
 .lp-footer-bottom {
   display: flex;
@@ -992,11 +994,11 @@
   justify-content: space-between;
   gap: 20px;
   padding-top: 22px;
-  font-size: 9px;
+  font-size: 11px;
   color: #858590;
 }
 .lp-footer-bottom p {
-  font-size: 9px;
+  font-size: 11px;
 }
 .flux-workspace-loading {
   min-height: 100dvh;
@@ -1235,17 +1237,17 @@
   }
   .lp-card-amount small {
     margin-left: 5px;
-    font-size: 8px;
+    font-size: 10px;
   }
   .lp-card-header {
     padding-left: 14px;
     padding-right: 14px;
   }
   .lp-card-header strong {
-    font-size: 10px;
+    font-size: 12px;
   }
   .lp-card-header div > span {
-    font-size: 8px;
+    font-size: 10px;
   }
   .lp-card-indicator {
     display: none;
@@ -1260,10 +1262,10 @@
     border-radius: 23px;
   }
   .lp-flow-engine > span {
-    font-size: 9px;
+    font-size: 11px;
   }
   .lp-flow-engine > small {
-    font-size: 7px;
+    font-size: 9px;
   }
   .lp-principles,
   .lp-section,
@@ -1277,24 +1279,24 @@
     padding: 0 18px;
   }
   .lp-principles p {
-    font-size: 11px;
+    font-size: 13px;
   }
   .lp-section {
     padding-top: 85px;
   }
   .lp-workflow-layout {
-    grid-template-columns: 1fr 1.1fr;
-    gap: 22px;
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
   .lp-step {
     padding: 18px 12px;
     gap: 12px;
   }
   .lp-step strong {
-    font-size: 13px;
+    font-size: 15px;
   }
   .lp-step-description {
-    font-size: 11px;
+    font-size: 13px;
   }
   .lp-step > svg {
     display: none;
@@ -1303,17 +1305,17 @@
     flex-wrap: wrap;
   }
   .lp-demo-badge {
-    font-size: 7px;
+    font-size: 9px;
     padding: 4px 6px;
   }
   .lp-demo-content {
     padding: 15px;
   }
   .lp-demo-heading h3 {
-    font-size: 10px;
+    font-size: 12px;
   }
   .lp-demo-heading p {
-    font-size: 8px;
+    font-size: 10px;
   }
   .lp-demo-icon {
     width: 28px;
@@ -1321,7 +1323,7 @@
     border-radius: 8px;
   }
   .lp-calculation > div {
-    font-size: 10px;
+    font-size: 12px;
   }
   .lp-calculation-total > strong {
     font-size: 23px;
@@ -1338,10 +1340,10 @@
     padding: 22px 18px;
   }
   .lp-feature-grid h3 {
-    font-size: 14px;
+    font-size: 16px;
   }
   .lp-feature-grid p {
-    font-size: 11px;
+    font-size: 13px;
   }
   .lp-final-cta {
     margin-top: 85px;
@@ -1361,7 +1363,7 @@
     right: -130px;
   }
 }
-@media (max-width: 640px) {
+@media (max-width: 760px) {
   .lp-header {
     height: 78px;
     padding: 0 20px;
@@ -1382,7 +1384,7 @@
     margin-left: auto;
     padding: 11px 13px;
     gap: 12px;
-    font-size: 11px;
+    font-size: 13px;
   }
   .lp-menu-button {
     display: inline-flex;
@@ -1392,7 +1394,7 @@
     padding: 48px 20px 0;
   }
   .lp-announcement {
-    font-size: 9px;
+    font-size: 11px;
     padding: 7px 9px;
     gap: 7px;
   }
@@ -1402,7 +1404,7 @@
     margin: 26px 0 19px;
   }
   .lp-hero-copy > p {
-    font-size: 13px;
+    font-size: 15px;
     max-width: 340px;
     margin: auto;
     line-height: 1.8;
@@ -1417,13 +1419,13 @@
   }
   .lp-hero-actions .lp-button {
     padding: 16px 21px;
-    font-size: 12px;
+    font-size: 14px;
   }
   .lp-text-link {
-    font-size: 11px;
+    font-size: 13px;
   }
   .lp-sandbox-note {
-    font-size: 9px;
+    font-size: 11px;
   }
   .lp-flow {
     height: 599px;
@@ -1431,7 +1433,7 @@
   }
   .lp-flow-label-top {
     top: 0;
-    font-size: 7px;
+    font-size: 9px;
     letter-spacing: 1.1px;
   }
   .lp-flow-body {
@@ -1448,10 +1450,10 @@
     padding: 13px 15px 0;
   }
   .lp-card-header strong {
-    font-size: 11px;
+    font-size: 13px;
   }
   .lp-card-header div > span {
-    font-size: 9px;
+    font-size: 11px;
   }
   .lp-card-amount {
     padding: 15px;
@@ -1527,7 +1529,7 @@
   .lp-flow-bottom {
     bottom: 0;
     justify-content: center;
-    font-size: 8px;
+    font-size: 10px;
   }
   .lp-flow-bottom > span:last-child {
     display: none;
@@ -1554,7 +1556,7 @@
     border-top: 1px solid #e9e9ee;
   }
   .lp-principles p {
-    font-size: 12px;
+    font-size: 14px;
   }
   .lp-principles p br {
     display: none;
@@ -1564,13 +1566,13 @@
   }
   .lp-principle-index {
     padding: 0;
-    font-size: 8px;
+    font-size: 10px;
   }
   .lp-section {
     padding-top: 73px;
   }
   .lp-eyebrow {
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 1.2px;
   }
   .lp-section h2 {
@@ -1579,7 +1581,7 @@
     margin-top: 16px;
   }
   .lp-section-heading > p {
-    font-size: 12px;
+    font-size: 14px;
     max-width: 270px;
     margin: 16px auto 0;
   }
@@ -1593,10 +1595,10 @@
     gap: 15px;
   }
   .lp-step strong {
-    font-size: 14px;
+    font-size: 16px;
   }
   .lp-step-description {
-    font-size: 12px;
+    font-size: 14px;
   }
   .lp-step > svg {
     display: block;
@@ -1612,13 +1614,13 @@
     gap: 9px;
   }
   .lp-demo-heading h3 {
-    font-size: 11px;
+    font-size: 13px;
   }
   .lp-demo-badge {
-    font-size: 7px;
+    font-size: 9px;
   }
   .lp-calculation > div {
-    font-size: 11px;
+    font-size: 13px;
   }
   .lp-calculation-total > strong {
     font-size: 26px;
@@ -1627,7 +1629,7 @@
     gap: 17px;
   }
   .lp-control-heading > p {
-    font-size: 12px;
+    font-size: 14px;
   }
   .lp-feature-grid {
     grid-template-columns: 1fr;
@@ -1641,16 +1643,16 @@
     margin-bottom: 21px;
   }
   .lp-feature-grid h3 {
-    font-size: 17px;
+    font-size: 19px;
   }
   .lp-feature-grid p {
-    font-size: 12px;
+    font-size: 14px;
     max-width: 330px;
   }
   .lp-feature-tag,
   .lp-feature-link {
     margin-top: 22px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .lp-final-cta {
     margin-top: 65px;
@@ -1663,11 +1665,11 @@
     letter-spacing: -1.6px;
   }
   .lp-final-cta .lp-eyebrow {
-    font-size: 7px;
+    font-size: 9px;
     letter-spacing: 1px;
   }
   .lp-final-cta p {
-    font-size: 11px;
+    font-size: 13px;
     max-width: 280px;
   }
   .lp-cta-orbits {
@@ -1689,20 +1691,20 @@
   .lp-footer-top > p {
     order: 3;
     width: 100%;
-    font-size: 10px;
+    font-size: 12px;
   }
   .lp-footer-top > a:last-child {
-    font-size: 9px;
+    font-size: 11px;
   }
   .lp-footer-bottom {
     flex-wrap: wrap;
     row-gap: 14px;
     padding-top: 19px;
-    font-size: 8px;
+    font-size: 10px;
   }
   .lp-footer-bottom > p {
     order: 3;
-    font-size: 8px;
+    font-size: 10px;
     width: 100%;
   }
   .flux-intro-content h1 {
@@ -1728,6 +1730,94 @@
     opacity: 0;
   }
 }
+
+.lp-route {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 22px auto 0;
+}
+.lp-route-label {
+  color: #787882;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+}
+.lp-route-path {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 11px 18px;
+  border: 1px solid #e2e6ec;
+  border-radius: 12px;
+  background: #fff;
+  font-size: 15px;
+  color: #3c3c44;
+}
+.lp-route-asset {
+  color: #167c65;
+  font-weight: 600;
+}
+.lp-route-via {
+  font-size: 12px;
+  color: #81818c;
+}
+.lp-route-path strong {
+  font-weight: 550;
+}
+.lp-route-path > svg {
+  color: #8b9bb0;
+}
+.lp-route-destination {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 550;
+}
+.lp-route-destination svg {
+  width: 21px;
+  height: 21px;
+}
+@media (max-width: 760px) {
+  .lp-route {
+    margin-top: 20px;
+  }
+  .lp-route-path {
+    gap: 10px;
+    padding: 11px 13px;
+    font-size: 14px;
+  }
+  .lp-route-label {
+    font-size: 10px;
+  }
+  .lp-hero-copy > p {
+    max-width: 410px;
+  }
+  .lp-sandbox-note {
+    max-width: 300px;
+    line-height: 1.6;
+  }
+  .lp-demo-heading {
+    flex-wrap: wrap;
+  }
+  .lp-calculation-total {
+    flex-wrap: wrap;
+  }
+  .lp-calculation-total small {
+    white-space: nowrap;
+  }
+  .lp-approval-amount {
+    flex-wrap: wrap;
+  }
+  .lp-principles p br {
+    display: initial;
+  }
+  .lp-principles p strong {
+    margin-left: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .lp *,
   .lp *::before,
