@@ -37,8 +37,8 @@ import type {
   OutboxEvent,
   Overview,
   Scenario,
-} from '../../backend/src/shared/types.js';
-import { formatAmount, shortfall } from '../../backend/src/shared/money.js';
+} from '../../shared/types.js';
+import { formatAmount, shortfall } from '../../shared/money.js';
 
 const money = (v: string | number) =>
   new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(

@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { units, decimal, shortfall, formatAmount } from '../src/shared/money.js';
+import { units, decimal, shortfall, formatAmount } from '../../shared/money.js';
 import { Store, digest } from '../src/store.js';
 import { AppError, FundingService } from '../src/service.js';
-import type { Account, CreateFunding, FundingRequest } from '../src/shared/types.js';
+import type { Account, CreateFunding, FundingRequest } from '../../shared/types.js';
 
 function setup(path = ':memory:') {
   let ms = Date.parse('2026-09-06T12:00:00Z');

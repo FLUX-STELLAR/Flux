@@ -1,4 +1,4 @@
-import type { CreateFunding, FundingRequest } from '../shared/types.js';
+import type { CreateFunding, FundingRequest } from '../../../shared/types.js';
 
 export class FluxClient {
   constructor(private options: { baseUrl: string; token: string }) {}

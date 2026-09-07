@@ -41,9 +41,9 @@ Treasury policy changes and the emergency pause work from the UI. Search/status 
 ## Structure
 
 ```text
+shared/               API types and exact monetary arithmetic, used by both sides
 backend/src/          Express API, SQLite store, funding service and worker
 backend/src/adapters/ Persistent sandbox transfer adapter
-backend/src/shared/   Shared API types and exact monetary arithmetic
 backend/src/sdk/      Partner API client and webhook verifier
 backend/tests/        Core, API and runtime safety tests
 frontend/src/         React operations workspace

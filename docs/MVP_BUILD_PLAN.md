@@ -8,8 +8,8 @@ Tek operatörün ödeme grubunu oluşturduğu, açığı hesapladığı, tutarı
 
 ## Kod yapısı
 
+- `shared`: API sözleşmeleri, para hassasiyeti, durum tipleri. Frontend ve backend ortak kullanır.
 - `backend/src`: HTTP API, SQLite kalıcılık, fonlama/politika servisi, worker, adaptörler ve webhook outbox.
-- `backend/src/shared`: API sözleşmeleri, para hassasiyeti, durum tipleri. Frontend de buradan import eder.
 - `backend/src/sdk`: sınırlı partner istemcisi ve webhook doğrulaması.
 - `frontend/src`: React/TypeScript operatör uygulaması.
 - `backend/tests` ve `frontend/tests`: para güvenliği, API erişimi, dayanıklılık ve kullanıcı yolculukları.

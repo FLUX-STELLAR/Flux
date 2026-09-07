@@ -12,5 +12,5 @@
     "skipLibCheck": true,
     "types": ["node", "vite/client"]
   },
-  "include": ["frontend", "backend"]
+  "include": ["frontend", "backend", "shared"]
 }
