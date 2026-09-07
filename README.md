@@ -1,4 +1,6 @@
-<img src="frontend/public/favicon.svg" alt="Flux logo" width="240" />
+<p align="center">
+  <img src="frontend/public/favicon.svg" alt="Flux logo" width="240" />
+</p>
 
 # Flux
 
