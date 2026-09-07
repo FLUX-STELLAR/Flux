@@ -5,6 +5,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Bell,
+  CalendarClock,
   Check,
   CheckCheck,
   Code2,
@@ -147,9 +148,10 @@ function Modal({
     </dialog>
   );
 }
-type Page = 'overview' | 'requests' | 'policy' | 'audit' | 'integrations';
+type Page = 'overview' | 'planner' | 'requests' | 'policy' | 'audit' | 'integrations';
 const navigation: { id: Page; label: string; icon: typeof Activity }[] = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
+  { id: 'planner', label: 'Liquidity planner', icon: CalendarClock },
   { id: 'requests', label: 'Funding requests', icon: ArrowDownLeft },
   { id: 'policy', label: 'Treasury policy', icon: SlidersHorizontal },
   { id: 'audit', label: 'Activity & audit', icon: Activity },
@@ -374,6 +376,7 @@ export default function App() {
                   create={() => setCreating(true)}
                 />
               )}
+              {page === 'planner' && <PlannerPage data={overview} />}
               {page === 'requests' && (
                 <RequestsTable
                   data={overview}
@@ -429,6 +432,148 @@ export default function App() {
       )}
     </div>
   );
+}
+
+type PlannerStatus = 'covered' | 'funding-needed' | 'at-risk';
+type PlannerRow = {
+  id: string;
+  label: string;
+  amount: string;
+  deadline: string;
+  funding: string;
+  projected: string;
+  status: PlannerStatus;
+  rationale: string;
+};
+
+function PlannerPage({ data }: { data: Overview }) {
+  const [horizon, setHorizon] = useState<1 | 6 | 24>(24);
+  const rows = useMemoPlannerRows(data, horizon);
+  const totalFunding = rows.reduce((sum, row) => sum + Number(row.funding), 0);
+  const atRisk = rows.filter((row) => row.status === 'at-risk').length;
+  return (
+    <>
+      <section className="planner-intro">
+        <div>
+          <span className="eyebrow">Read-only sandbox projection</span>
+          <h2>See the next funding decision before it becomes urgent.</h2>
+          <p>
+            Flux sequences upcoming obligations against the protected reserve. This preview never
+            creates, approves or submits a funding request.
+          </p>
+        </div>
+        <div className="planner-controls" aria-label="Planner horizon">
+          {[1, 6, 24].map((value) => (
+            <button
+              key={value}
+              className={horizon === value ? 'selected' : ''}
+              onClick={() => setHorizon(value as 1 | 6 | 24)}
+            >
+              {value}h
+            </button>
+          ))}
+        </div>
+      </section>
+      <div className="metrics-grid planner-metrics">
+        <Metric
+          label="Projected funding"
+          value={`$${money(totalFunding)}`}
+          icon={<ArrowDownLeft size={19} />}
+          detail={<>{rows.length} obligations in horizon</>}
+        />
+        <Metric
+          label="Protected reserve"
+          value={`$${money(data.policy.minimum_reserve)}`}
+          icon={<ShieldCheck size={19} />}
+          detail={<>Must remain after every payout</>}
+        />
+        <Metric
+          label="Deadline risk"
+          value={atRisk ? `${atRisk} at risk` : 'On track'}
+          icon={<AlertTriangle size={19} />}
+          detail={<>Based on current sandbox timing</>}
+        />
+      </div>
+      <section className="panel planner-panel">
+        <div className="panel-heading">
+          <div>
+            <h2>Upcoming obligations<span className="count-tag">{rows.length}</span></h2>
+            <p>One account · {data.account.asset} · UTC deadlines</p>
+          </div>
+          <span className="small-text">Balance ${money(data.account.balance)} now</span>
+        </div>
+        <div className="planner-list">
+          {rows.map((row) => (
+            <div className="planner-row" key={row.id}>
+              <div className="planner-deadline">
+                <strong>{date(row.deadline)}</strong>
+                <span>{row.label}</span>
+              </div>
+              <div className="planner-amount">
+                <span>Payout</span>
+                <strong>${formatAmount(row.amount)}</strong>
+              </div>
+              <div className="planner-amount">
+                <span>Funding needed</span>
+                <strong>{Number(row.funding) ? `$${formatAmount(row.funding)}` : 'Covered'}</strong>
+              </div>
+              <div className="planner-projection">
+                <span>Balance after payout</span>
+                <strong>${formatAmount(row.projected)}</strong>
+              </div>
+              <div className={`planner-status ${row.status}`}>
+                <span />
+                {row.status === 'funding-needed' ? 'Funding needed' : row.status === 'at-risk' ? 'At risk' : 'Covered'}
+                <small>{row.rationale}</small>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="planner-note">
+          <CalendarClock size={16} />
+          <span>Projection uses current balance, existing allocations and the {horizon}-hour horizon. Incoming funds are scenarios until observed.</span>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function useMemoPlannerRows(data: Overview, horizon: number): PlannerRow[] {
+  const fallback = [
+    ['Payroll batch', '18430'],
+    ['Merchant settlement', '12600'],
+    ['Remittance batch', '9800'],
+  ];
+  const requests = data.requests
+    .filter((request) => !['CANCELLED', 'EXPIRED'].includes(request.status))
+    .sort((a, b) => a.scheduled_at.localeCompare(b.scheduled_at));
+  const now = Date.now();
+  const source = Array.from({ length: 3 }, (_, index) => {
+    const request = requests[index];
+    const [label, amount] = fallback[index];
+    return {
+      id: request?.id ?? `demo-${index}`,
+      label: request?.label ?? label,
+      amount: request?.required_liquidity ?? amount,
+      deadline: request?.scheduled_at ?? new Date(now + (index + 1) * 3_600_000).toISOString(),
+    };
+  }).filter((row) => new Date(row.deadline).getTime() <= now + horizon * 3_600_000);
+  let balance = Number(data.account.balance);
+  const reserve = Number(data.policy.minimum_reserve);
+  return source.map((row) => {
+    const funding = Math.max(0, Number(row.amount) + reserve - balance);
+    const projected = balance + funding - Number(row.amount);
+    balance = projected;
+    const atRisk = funding > 0 && new Date(row.deadline).getTime() - now < 30 * 60_000;
+    const status: PlannerStatus = atRisk ? 'at-risk' : funding > 0 ? 'funding-needed' : 'covered';
+    return {
+      ...row,
+      funding: funding.toFixed(2),
+      projected: projected.toFixed(2),
+      status,
+      rationale: atRisk ? 'Latest start may have passed' : funding > 0 ? 'Reserve protected' : 'Within balance',
+    };
+  });
 }
 
 function OverviewPage({
