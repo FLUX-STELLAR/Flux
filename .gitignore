@@ -10,6 +10,10 @@ test-results/
 .DS_Store
 .vercel/
 
+# Local sandbox database; data/ covers backend/data, this catches strays
+*.sqlite*
+
 # Internal PRD and review documents, never published
 flux_final_prd.docx
 FLUX_PRD_INCELEME_RAPORU.md
+SCF_INTEREST_FORM_ANSWERS.txt
