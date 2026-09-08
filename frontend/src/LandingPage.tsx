@@ -17,7 +17,10 @@ import {
   X,
 } from 'lucide-react';
 
-type Props = { enter: (event: MouseEvent<HTMLAnchorElement>) => void };
+type Props = {
+  enter?: (event: MouseEvent<HTMLAnchorElement>) => void;
+  publicSite?: boolean;
+};
 const repo = 'https://github.com/FLUX-STELLAR/Flux';
 const steps = [
   {
@@ -66,13 +69,14 @@ function StellarMark() {
   );
 }
 
-export default function LandingPage({ enter }: Props) {
+export default function LandingPage({ enter, publicSite = false }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [step, setStep] = useState(0);
   const launch = (event: MouseEvent<HTMLAnchorElement>) => {
     setMenuOpen(false);
-    enter(event);
+    enter?.(event);
   };
+  const workspaceHref = publicSite ? '#how-it-works' : '/app';
   return (
     <div className="lp" id="top">
       <a className="lp-skip" href="#lp-main">
@@ -89,8 +93,8 @@ export default function LandingPage({ enter }: Props) {
             Developers <ArrowUpRight size={13} />
           </a>
         </nav>
-        <a href="/app" onClick={launch} className="lp-button lp-button-small">
-          Launch app <ArrowUpRight size={15} />
+        <a href={workspaceHref} onClick={launch} className="lp-button lp-button-small">
+          {publicSite ? 'View demo' : 'Launch app'} <ArrowUpRight size={15} />
         </a>
         <button
           className="lp-menu-button"
@@ -163,15 +167,19 @@ export default function LandingPage({ enter }: Props) {
               </div>
             </div>
             <div className="lp-hero-actions">
-              <a href="/app" onClick={launch} className="lp-button">
-                Explore the workspace <ArrowUpRight size={17} />
+              <a href={workspaceHref} onClick={launch} className="lp-button">
+                {publicSite ? 'Explore the workflow' : 'Explore the workspace'}{' '}
+                <ArrowUpRight size={17} />
               </a>
               <a href="#how-it-works" className="lp-text-link">
                 See how it flows <ArrowRight size={16} />
               </a>
             </div>
             <span className="lp-sandbox-note">
-              <span /> Try the funding sandbox · Planner & live route in development
+              <span />{' '}
+              {publicSite
+                ? 'Interactive walkthrough · Transfers are simulated'
+                : 'Try the funding sandbox · Planner & live route in development'}
             </span>
           </div>
 
@@ -493,10 +501,10 @@ export default function LandingPage({ enter }: Props) {
               </span>
               <h3>Plan around obligations.</h3>
               <p>
-                Next up: a 1/6/24-hour liquidity view across upcoming batches. See what needs
-                funding, when it’s needed, and which deadlines are at risk.
+                An initial 1/6/24-hour planner preview is available in the local sandbox. Explore
+                funding needs and deadlines across sample batches.
               </p>
-              <span className="lp-feature-tag">Liquidity Planner · In development</span>
+              <span className="lp-feature-tag">Liquidity Planner · Sandbox preview</span>
             </article>
             <article>
               <span className="lp-feature-icon">
@@ -546,12 +554,23 @@ export default function LandingPage({ enter }: Props) {
             <p>
               Take a batch from funding request to reconciliation.
               <br />
-              See the whole picture in the Flux sandbox.
+              {publicSite
+                ? 'Run the local sandbox to try approvals, transfers and recovery.'
+                : 'See the whole picture in the Flux sandbox.'}
             </p>
-            <a href="/app" onClick={launch} className="lp-button lp-button-white">
-              Enter the workspace <ArrowUpRight size={17} />
+            <a
+              href={publicSite ? `${repo}#run-locally` : '/app'}
+              onClick={launch}
+              className="lp-button lp-button-white"
+            >
+              {publicSite ? 'Run the sandbox locally' : 'Enter the workspace'}{' '}
+              <ArrowUpRight size={17} />
             </a>
-            <span className="lp-cta-note">No wallet needed. Just a little curiosity.</span>
+            <span className="lp-cta-note">
+              {publicSite
+                ? 'Source code, setup instructions and tests on GitHub.'
+                : 'No wallet needed. Just a little curiosity.'}
+            </span>
           </div>
           <div className="lp-cta-monogram" aria-hidden="true">
             <img src="/favicon.svg" width="150" height="150" alt="" />

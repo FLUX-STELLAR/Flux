@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "tsx backend/src/index.ts",
     "build": "tsc --noEmit && vite build --config frontend/vite.config.ts",
+    "build:site": "tsc --noEmit && vite build --config frontend/vite.config.ts --mode public",
     "start": "NODE_ENV=production tsx backend/src/index.ts",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test backend/tests/*.test.ts",

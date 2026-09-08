@@ -4,9 +4,12 @@ import { resolve } from 'node:path';
 
 const root = import.meta.dirname;
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   root,
   plugins: [react()],
-  build: { outDir: resolve(root, 'dist/client'), emptyOutDir: true },
+  build: {
+    outDir: resolve(root, mode === 'public' ? 'dist/public' : 'dist/client'),
+    emptyOutDir: true,
+  },
   server: { host: '127.0.0.1' },
-});
+}));
