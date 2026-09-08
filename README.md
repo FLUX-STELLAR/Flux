@@ -12,7 +12,7 @@ The intended outcome is **less continuously prefunded stablecoin inventory on St
 
 > **Current stage: local sandbox prototype, preparing for SCF interest review.** The API, database and operator workflow are implemented. Balances, cross-chain transfers and payouts are simulated. Live wallet signing, transport, Stellar observation and payout-engine integration remain to be built. No production usage or measured capital savings are claimed.
 
-**Proposed next direction:** a time-based liquidity planner for multiple upcoming batches, built on the existing funding lifecycle. The first live pilot remains limited to one validated asset route. Planning, additional rails and live integrations are not implemented. See the [v1.4 product direction proposal](docs/PRODUCT_DIRECTION.md) for scope, validation criteria and delivery order.
+**Current sandbox increment:** a read-only, time-based liquidity planner for multiple upcoming batches is now available alongside the existing funding lifecycle. It uses mock obligations and current sandbox balances; it never creates, approves or submits a funding request. The first live pilot remains limited to one validated asset route. See the [v1.4 product direction proposal](docs/PRODUCT_DIRECTION.md) for scope, validation criteria and delivery order.
 
 [Product](#the-problem) · [Workflow](#how-flux-works) · [Scope](#first-live-mvp-scope) · [Status](#what-is-implemented) · [Run locally](#run-locally) · [Architecture](docs/ARCHITECTURE.md)
 

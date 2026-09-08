@@ -2,7 +2,7 @@
 
 Source: PRD v1.3 (6 September 2026) and the PRD review report (`FLUX_PRD_INCELEME_RAPORU.md`).
 
-This document records the delivered v1.3 sandbox work. The proposed next product scope is described in the [v1.4 product direction](PRODUCT_DIRECTION.md): a time-based Liquidity Planner for multiple batches on top of the existing funding flow, initially read-only. Multiple live routes and autonomous submission are outside this increment's scope.
+This document records the delivered v1.3 sandbox work and the first read-only slice of the [v1.4 Liquidity Planner](PRODUCT_DIRECTION.md). The planner is a local preview over mock obligations and current sandbox balances; it does not create funding intents or submit transfers. Multiple live routes and autonomous submission are outside this increment's scope.
 
 ## First working delivery
 
@@ -59,4 +59,4 @@ These gates do not block building the local application. They must be passed bef
 
 ## Initial delivery status — 7 September 2026
 
-Local sandbox tasks 1–8 are implemented. The API, persistent database, exact-amount calculations, manual approval, limits, allocations, recovery, audit/outbox, partner client, five-screen operator panel and tests are present. Real network/wallet/SDP integrations remain outstanding gates; test results and scope are tracked in `docs/ACCEPTANCE.md`.
+Local sandbox tasks 1–8 are implemented, together with the read-only Liquidity Planner preview. The API, persistent database, exact-amount calculations, manual approval, limits, allocations, recovery, audit/outbox, partner client, planner preview, operator panel and tests are present. Real network/wallet/SDP integrations remain outstanding gates; test results and scope are tracked in `docs/ACCEPTANCE.md`.

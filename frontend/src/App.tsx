@@ -497,7 +497,9 @@ function PlannerPage({ data }: { data: Overview }) {
       <section className="panel planner-panel">
         <div className="panel-heading">
           <div>
-            <h2>Upcoming obligations<span className="count-tag">{rows.length}</span></h2>
+            <h2>
+              Upcoming obligations<span className="count-tag">{rows.length}</span>
+            </h2>
             <p>One account · {data.account.asset} · UTC deadlines</p>
           </div>
           <span className="small-text">Balance ${money(data.account.balance)} now</span>
@@ -523,7 +525,11 @@ function PlannerPage({ data }: { data: Overview }) {
               </div>
               <div className={`planner-status ${row.status}`}>
                 <span />
-                {row.status === 'funding-needed' ? 'Funding needed' : row.status === 'at-risk' ? 'At risk' : 'Covered'}
+                {row.status === 'funding-needed'
+                  ? 'Funding needed'
+                  : row.status === 'at-risk'
+                    ? 'At risk'
+                    : 'Covered'}
                 <small>{row.rationale}</small>
               </div>
             </div>
@@ -531,7 +537,10 @@ function PlannerPage({ data }: { data: Overview }) {
         </div>
         <div className="planner-note">
           <CalendarClock size={16} />
-          <span>Projection uses current balance, existing allocations and the {horizon}-hour horizon. Incoming funds are scenarios until observed.</span>
+          <span>
+            Projection uses current balance, existing allocations and the {horizon}-hour horizon.
+            Incoming funds are scenarios until observed.
+          </span>
         </div>
       </section>
     </>
@@ -571,7 +580,11 @@ function useMemoPlannerRows(data: Overview, horizon: number): PlannerRow[] {
       funding: funding.toFixed(2),
       projected: projected.toFixed(2),
       status,
-      rationale: atRisk ? 'Latest start may have passed' : funding > 0 ? 'Reserve protected' : 'Within balance',
+      rationale: atRisk
+        ? 'Latest start may have passed'
+        : funding > 0
+          ? 'Reserve protected'
+          : 'Within balance',
     };
   });
 }

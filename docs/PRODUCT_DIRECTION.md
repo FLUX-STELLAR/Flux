@@ -1,6 +1,6 @@
 # Flux — Product direction and v1.4 proposal
 
-Date: 7 September 2026. Status: a working proposal in response to the product critique shared by the user. This is not a final PRD replacing the separately maintained PRD v1.3. The planning capabilities below are not yet implemented; the current product runs as a local sandbox.
+Date: 7 September 2026. Status: a working proposal in response to the product critique shared by the user. This is not a final PRD replacing the separately maintained PRD v1.3. The first read-only planner preview is implemented in the local sandbox; planning remains mock-data only and is not connected to funding execution.
 
 ## 1. Proposed product decision
 
@@ -68,7 +68,7 @@ The interviews should answer:
 
 ## 5. Next deliverable: Liquidity Planner sandbox
 
-The existing application pages and funding flow are preserved. The proposed new `Liquidity plan` screen is added as a separate navigation item; it does not yet exist in the current UI or API.
+The existing application pages and funding flow are preserved. A read-only `Liquidity planner` screen is now available as a separate navigation item. It uses current sandbox requests when present and deterministic mock obligations in an empty workspace; it does not yet exist in the API and has no execution side effects.
 
 | Component              | Initial delivery scope                                                                                                                                                                    |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -161,6 +161,6 @@ Success is measured using the same operator records: time-weighted average Stell
 
 Positioning centers on treasury decisions and reconciliation; protocol count is not a substitute for product value. The current Integration Track requires existing traction and measures focused on real usage; adding multiple integrations does not satisfy those conditions. Flux's eligibility is not yet confirmed. [SCF Integration Track](https://stellar.gitbook.io/scf-handbook/scf-awards/build-award/integration-track)
 
-The landing page may show the existing sandbox. Because the planner is not yet implemented, its screens or multi-route selection will not be advertised as working features. Once the first planner demo is ready, the product narrative will be updated with concrete screens.
+The landing page may show the existing sandbox. The planner preview is deliberately not advertised as a live integration or multi-route feature; its screens are local, read-only and mock-data driven. The product narrative can expand after operator data validates the planning workflow.
 
-The first engineering step is a **read-only, three-batch Liquidity Planner sandbox**. This document does not change backend behavior, existing application screens or mainnet transaction permissions.
+The first engineering step is a **read-only, three-batch Liquidity Planner sandbox**, now delivered in the workspace UI. This increment does not change backend behavior, existing funding controls or mainnet transaction permissions.
